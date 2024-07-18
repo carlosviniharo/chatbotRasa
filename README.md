@@ -1,2 +1,2 @@
 # chatbotRasa
-This is a chatbot for a banking institution wich uses Rasa framework and Whatsapp APIs.
+This is a banking institution chatbot that uses the Rasa framework and Whatsapp APIs.

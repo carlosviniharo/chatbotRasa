@@ -16,6 +16,9 @@ responses:
   utter_goodbye:
   - text: "Bye"
 
+  utter_iamabot:
+  - text: "EZ bruwwwwww"
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

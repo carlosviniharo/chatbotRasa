@@ -2,10 +2,17 @@ version: "3.1"
 
 stories:
 
-- story: greetings_path
+- story: asking time zone
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_goodbye
+  - intent: find_time_zone
+  - action: utter_ask_city_info
+  - intent: city_info
+  - action: utter_finding_timezone
+  - action: action_find_timezone
+  - intent: thanks
+  - action: utter_you_are_welcome
+
+
 

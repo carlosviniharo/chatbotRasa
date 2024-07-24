@@ -36,4 +36,27 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-    
+
+- intent: find_time_zone
+  examples: |
+    - can you tell me the time? 
+    - could you tell me the time?
+    - can you find me a timezone?
+    - what time is it?
+
+- intent: city_info
+  examples: |
+    - [Europe/London](target_timezone)
+    - [Europe/Lisbon](target_timezone)
+    - [America/Toronto](target_timezone)
+    - [America/New_York](target_timezone)
+    - [Africa/Johannesburg](target_timezone)
+    - [Europe/Istanbul](target_timezone)
+    - [Europe/Berlin](target_timezone)
+
+- intent: thanks
+  examples: |
+    - thank you
+    - thank you very much
+    - thanks
+    - great, thanks

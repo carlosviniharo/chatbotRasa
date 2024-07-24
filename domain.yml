@@ -3,18 +3,39 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
+  - city_info
+  - find_time_zone
+  - thanks
   - bot_challenge
+
+entities:
+  - target_timezone
+
+slots:
+  target_timezone:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: target_timezone
+
+actions:
+- action_find_timezone
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hey! I am a Rasa Instance created by BaysanSoft. I am here to help you to get the time zone of the area you wanted."
 
   utter_goodbye:
   - text: "Bye"
+
+  utter_ask_city_info:
+    - text: "Do you want to learn the time zone of which city? Please give me the structure as: Area/Region"
+
+  utter_finding_timezone:
+    - text: "Give me a second to look the time zone for {target_timezone}"
+
+  utter_you_are_welcome:
+    - text: "you are very wellcome"
 
   utter_iamabot:
   - text: "EZ bruwwwwww"

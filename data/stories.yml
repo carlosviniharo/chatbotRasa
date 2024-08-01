@@ -1,11 +1,56 @@
 version: "3.1"
 
 stories:
-
-- story: greetings_path
+- story: start conversation and ask user id
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_goodbye
+    - intent: start_conversation
+    - action: utter_start_conversation
+    - action: utter_identity
+    - intent: inform_identity
+    - action: action_show_identity
+    - checkpoint: ask_option_checkpoint
 
+- story: ask_option
+  steps:
+    - checkpoint: ask_option_checkpoint
+    - action: utter_services
+    - intent: choose_option
+    - action: action_show_option
+#    - action: client_data_form
+#    - active_loop: client_data_form
+
+#- story: start conversation and collect client data investment
+#  steps:
+#    - intent: start_conversation
+#    - action: utter_start_conversation
+#    - action: utter_service
+#    - intent: investments
+#    - action: action_set_slot
+#      value:
+#        service_type: "investment"  # Set the slot to "investment"
+#    - action: client_data_form
+#    - active_loop: client_data_form
+
+# - story: show_credits
+#   steps:
+#   - checkpoint: choose_option
+#   - intent: choose_option
+#     entities:
+#       - option: "credits"
+#   - action: action_show_option
+
+# - story: show_investments
+#   steps:
+#   - checkpoint: choose_option
+#   - intent: choose_option
+#     entities:
+#       - option: "investments"
+#   - action: action_show_option
+
+# - story: show_accounts
+#   steps:
+#   - checkpoint: choose_option
+#   - intent: choose_option
+#     entities:
+#       - option: "accounts"
+#   - action: action_show_option

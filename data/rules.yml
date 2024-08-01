@@ -1,13 +1,48 @@
 version: "3.1"
 
 rules:
+  # - rule: ask option after user ID
+  #   condition:
+  #     - slot_was_set:
+  #       - identity
+  #   steps:
+  #     - action: action_show_identity
+  #     - action: utter_services
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  # - rule: handle chosen option
+  #   condition:
+  #     - slot_was_set:
+  #       - identity
+  #   steps:
+  #     - intent: choose_option
+  #     - action: action_show_option
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  # - rule: handle creditos option
+  #   steps:
+  #     - intent: service_loan
+  #       entities:
+  #         - option: "creditos"
+  #     - action: client_data_form
+  #     - active_loop: client_data_form
+
+  # - rule: activate ask for investment
+  #   steps:
+  #     - intent: investments
+  #     - action: client_data_form
+  #     - active_loop: client_data_form
+
+  # - rule: submit loan form
+  #   condition:
+  #     - active_loop: client_data_form
+  #   steps:
+  #     - action: client_data_form
+  #     - active_loop: null
+  #     - action: utter_submit
+  #     - action: utter_slots_values
+
+  - rule: just say goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+      - action: action_end_conversation
+

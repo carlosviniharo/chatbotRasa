@@ -4,51 +4,76 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
 
+#from typing import Any, Text, Dict, List
 
-# This is a simple example for a custom action which utters "Hello World!"
-
-from typing import Any, Text, Dict, List
+# from rasa_sdk import Action, Tracker
+# from rasa_sdk.executor import CollectingDispatcher
+#
+# class ActionEndConversation(Action):
+#     def name(self) -> str:
+#         return "action_end_conversation"
+#
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: dict) -> list:
+#         # To end the conversation and clear forms
+#         return [Restarted(), FollowupAction('action_listen')]
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSet
+from rasa_sdk.events import Restarted, FollowupAction
 
-import requests
-BASE_URL = "http://worldtimeapi.org/api/timezone/"
-class ActionShowTimeZone(Action):
-    """
-    every class has just 2 methods: name & run
-    """
-    def name(self) -> Text:
-        """Returns the name of action
 
-        Returns:
-            Text: the text we will register in `domain.py`
-        """
-        return "action_find_timezone"
+class ActionEndConversation(Action):
+    def name(self) -> str:
+        return "action_end_conversation"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            domain: dict) -> list:
+        # To end the conversation and clear forms
+        dispatcher.utter_message(text="Bueno, si tienes alguna otra pregunta no dudes en escribirme de nuevo")
+        return [Restarted()]
 
-        # we can get values from slots by `tracker` object
-        target_timezone = tracker.get_slot('target_timezone')
 
-        try:
-            res = requests.get(BASE_URL + target_timezone)
-            res.raise_for_status()  # Raise an exception for HTTP errors
-            res_json = res.json()
+class ActionShowIdentity(Action):
 
-            if 'utc_offset' in res_json:
-                output = f"Time zone is {res_json['utc_offset']}"
-            else:
-                output = "Please type in this structure: Area/Region"
-        except requests.exceptions.HTTPError:
-            output = 'Ops! There are too many requests on the time zone API. Please try a few moments later...'
-        except requests.exceptions.RequestException as e:
-            output = f"Request error: {e}"
-        except Exception as e:
-            output = f"An error occurred: {e}"
+    def name(self) -> str:
+        return "action_show_identity"
 
-        dispatcher.utter_message(text=output)
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: dict) -> list:
 
+        identity = tracker.get_slot("identity")
+        if identity:
+            dispatcher.utter_message(text=f"Your identity number is {identity}")
+        else:
+            dispatcher.utter_message(text="I could not get your identity number.")
+
+        return []
+
+
+class ActionShowOption(Action):
+
+    def name(self) -> str:
+        return "action_show_option"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: dict) -> list:
+        
+        option = tracker.get_slot("option")
+        
+        if option == "creditos":
+            dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de creditos")
+        elif option == "inversiones":
+            dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de inversiones")
+        elif option == "cuentas":
+            dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de cuentas")
+        else:
+            dispatcher.utter_message(text=f"Perdon tu respuesta no esta en nuestras opciones")
+            return [FollowupAction("choose_option")]
+        
         return []

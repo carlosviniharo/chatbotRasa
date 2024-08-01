@@ -1,44 +1,126 @@
 version: "3.1"
 
 intents:
-  - greet
+  - start_conversation
+  - inform_identity
+  - choose_option
+#  - inform_fullname
+#  - inform_phone
+#  - inform_address
+#  - inform_email
+#  - open_account
   - goodbye
-  - city_info
-  - find_time_zone
-  - thanks
   - bot_challenge
 
 entities:
-  - target_timezone
+  - identity
+  - option
+#  - phone
+#  - address
+#  - email
+
+#forms:
+#  client_data_form:
+#    required_slots:
+#      - fullname
+#      - phone
+#      - address
+#      - email
 
 slots:
-  target_timezone:
+  identity:
     type: text
     mappings:
       - type: from_entity
-        entity: target_timezone
+        entity: identity
+#    influence_conversation: false
 
-actions:
-- action_find_timezone
+  option:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: option
+
+#  fullname:hol
+#    type: text
+#    mappings:
+#    - type: from_entity
+#      entity: fullname
+#
+#  phone:
+#    type: float
+#    mappings:
+#    - type: from_entity
+#      entity: phone
+#
+#  address:
+#    type: text
+#    mappings:
+#    - type: from_entity
+#      entity: address
+#
+#  email:
+#    type: text
+#    mappings:
+#      - type: from_entity
+#        entity: email
+
 
 responses:
-  utter_greet:
-  - text: "Hey! I am a Rasa Instance created by BaysanSoft. I am here to help you to get the time zone of the area you wanted."
+  utter_start_conversation:
+    - text: | 
+        ¡Hola! Bienvenido/@ 😊 Gracias por comunicarte con la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. 
+        La Cooperativa Que Cree En Su Gente.
+        Soy PTIO su asistente virtual 🧡🖤
+
+  utter_identity:
+    - text: "Antes de comenzar me puedes brindarm tu numero de identificacion"
+
+  utter_services:
+    - text: |
+        ¿En qué le podemos ayudar?
+        1 - Inversiones
+        2 - Creditos
+        3 - Aperturas de Cuentas
+        4 - Otro
+
+#  utter_ask_fullname:
+#    - text: "Por favor, para acceder a la información sería tan amable de brindarme sus Nombres Completos"
+#
+#  utter_ask_phone:
+#    - text: "Por favor, para acceder a la información sería tan amable de brindarme su numero de telefono"
+#
+#  utter_ask_address:
+#    - text: "Por favor, la ciudad de donde se comunica"
+#
+#  utter_ask_email:
+#    - text: "Por favor, su correo electronico"
+
+#  utter_slots_values:
+#    - text: |
+#        Los datos ingresados son los siguientes:
+#          - Nombres Completos: {fullname}
+#          - Lugar de donde se comunica: {address}
+#          - Número telefónico: {phone}
+#          - Correo electrónico: {email}
+#
+#  utter_submit:
+#  - text: "Tenemos tus datos!"
+
+  # utter_show_user_type:
+  #   - text: "You are a {service_type}."
 
   utter_goodbye:
-  - text: "Bye"
-
-  utter_ask_city_info:
-    - text: "Do you want to learn the time zone of which city? Please give me the structure as: Area/Region"
-
-  utter_finding_timezone:
-    - text: "Give me a second to look the time zone for {target_timezone}"
-
-  utter_you_are_welcome:
-    - text: "you are very wellcome"
+    - text: "Adios, ¡que tengas un buen día!"
 
   utter_iamabot:
-  - text: "EZ bruwwwwww"
+    - text: "EZ bruwwwwww"
+
+
+actions:
+  - action_show_identity
+  - action_end_conversation
+  - action_show_option
 
 session_config:
   session_expiration_time: 60

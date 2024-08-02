@@ -1,23 +1,23 @@
 version: "3.1"
 
 stories:
-- story: start conversation and ask user id
+- story: start_conversation_and_ask_user_id
   steps:
     - intent: start_conversation
     - action: utter_start_conversation
-    - action: utter_identity
+    - action: utter_ask_identity
     - intent: inform_identity
     - action: action_show_identity
     - checkpoint: disclaimer_checkpoint
 
-- story: handle disclaimer (affirm)
+- story: handle_disclaimer (affirm)
   steps:
     - checkpoint: disclaimer_checkpoint
     - action: utter_disclaimer
     - intent: affirm
     - checkpoint: ask_option_checkpoint
 
-- story: handle disclaimer (deny)
+- story: handle_disclaimer (deny)
   steps:
     - checkpoint: disclaimer_checkpoint
     - action: utter_disclaimer
@@ -26,7 +26,7 @@ stories:
     - action: action_end_conversation
 
 
-- story: ask option
+- story: ask_option
   steps:
     - checkpoint: ask_option_checkpoint
     - action: utter_services
@@ -34,10 +34,11 @@ stories:
     - action: action_show_option
     - checkpoint: show_services
 
-- story: show_credits
+- story: ask_credits
   steps:
   - checkpoint: show_services
   - action: utter_loans
+  - intent: loan_info
 
 
 #- story: start conversation and collect client data investment

@@ -6,39 +6,45 @@ intents:
   - choose_option
   - affirm
   - deny
-#  - inform_fullname
-#  - inform_phone
-#  - inform_address
-#  - inform_email
-#  - open_account
+  - loan_info
+  - inform_fullname
+  - inform_city
+  - inform_phone
+  # - inform_email
+  # - open_account
   - goodbye
-  - bot_challenge
 
 entities:
   - identity
   - option
   - disclosure
-#  - phone
-#  - address
-#  - email
-
-#forms:
-#  client_data_form:
-#    required_slots:
-#      - fullname
-#      - phone
-#      - address
-#      - email
+  - loan_type
+  - fullname
+  - city
+  - phone
+  # - email
 
 
+forms:
+
+  identity_form:
+    required_slots:
+    - identity
+
+  client_data_form:
+    required_slots:
+      - fullname
+      - city
+      - phone
+      # - email
 
 slots:
   identity:
-    type: text
+    type: float
     mappings:
       - type: from_entity
         entity: identity
-#    influence_conversation: false
+    # influence_conversation: false
 
   option:
     type: text
@@ -46,42 +52,49 @@ slots:
       - type: from_entity
         entity: option
 
-
   disclosure:
     type: bool
     mappings:
-    - type: from_intent
-      intent: affirm
-      value: true
-    - type: from_intent
-      intent: deny
-      value: false
+      - type: from_intent
+        intent: affirm
+        value: true
+      - type: from_intent
+        intent: deny
+        value: false
 
+  loan_type:
+    type: float
+    mappings:
+      - type: from_intent
+        intent: affirm
+        value: 1
+      - type: from_intent
+        intent: deny
+        value: 2
 
-#  fullname:hol
-#    type: text
-#    mappings:
-#    - type: from_entity
-#      entity: fullname
-#
-#  phone:
-#    type: float
-#    mappings:
-#    - type: from_entity
-#      entity: phone
-#
-#  address:
-#    type: text
-#    mappings:
-#    - type: from_entity
-#      entity: address
-#
-#  email:
-#    type: text
-#    mappings:
-#      - type: from_entity
-#        entity: email
+  fullname:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: fullname
 
+  city:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: city
+
+  phone:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: phone
+
+  # email:
+  #   type: text
+  #   mappings:
+  #     - type: from_entity
+  #       entity: email
 
 responses:
   utter_start_conversation:
@@ -90,12 +103,12 @@ responses:
         La Cooperativa Que Cree En Su Gente.
         Soy PTIO su asistente virtual 🧡🖤
 
-  utter_identity:
-    - text: "Antes de comenzar me puedes brindarm tu numero de identificacion"
+  utter_ask_identity:
+    - text: "Antes de comenzar me puedes brindar tu número de identificación (e.g., 1004150883)."
 
   utter_disclaimer:
     - text: |
-        Al utilizar este canal digital autorizas a la Coperativa de Ahorro y Credito Pilahuin Tio Lta. a acceder a tus datos personales 
+        Al utilizar este canal digital autorizas a la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. a acceder a tus datos personales 
         para la gestión de requerimientos y consultas en general. Para más información sobre los términos y condiciones visita 
         https://www.pilahintio.com.ec/terminos-y-condiciones
         ¿Aceptas los términos y condiciones?
@@ -103,15 +116,15 @@ responses:
   utter_services:
     - text: |
         ¿En qué le podemos ayudar?
-          1 - Inversiones
-          2 - Creditos
-          3 - Aperturas de Cuentas
-          4 - Otro
+        - Inversiones
+        - Créditos
+        - Aperturas de Cuentas
+        - Otro
 
   utter_loans:
     - text: |
         Le ofrecemos las siguientes opciones de asistencia con respecto a préstamos:
-          1 - Obtener información sobre sus créditos actuales.
+          1 - Información sobre sus créditos actuales.
           2 - Solicitar un nuevo crédito.
 
   # utter_investments:
@@ -122,34 +135,34 @@ responses:
   #   - text: |
   #       Le ofrecemos las siguientes opciones de asistencia con respecto a cuentas:
 
-#  utter_ask_fullname:
-#    - text: "Por favor, para acceder a la información sería tan amable de brindarme sus Nombres Completos"
-#
-#  utter_ask_phone:
-#    - text: "Por favor, para acceder a la información sería tan amable de brindarme su numero de telefono"
-#
-#  utter_ask_address:
-#    - text: "Por favor, la ciudad de donde se comunica"
-#
-#  utter_ask_email:
-#    - text: "Por favor, su correo electronico"
+  utter_ask_fullname:
+    - text: "Por favor, para acceder a la información sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula"
 
-#  utter_slots_values:
-#    - text: |
-#        Los datos ingresados son los siguientes:
-#          - Nombres Completos: {fullname}
-#          - Lugar de donde se comunica: {address}
-#          - Número telefónico: {phone}
-#          - Correo electrónico: {email}
-#
-#  utter_submit:
-#  - text: "Tenemos tus datos!"
+  utter_ask_city:
+    - text: "Por favor, la ciudad de donde se comunica"
+
+  utter_ask_phone:
+    - text: "Por favor, para acceder a la información sería tan amable de brindarme su número de teléfono"
+
+  # utter_ask_email:
+  #   - text: "Por favor, su correo electrónico"
+
+  utter_submit:
+    - text: "¡Tenemos tus datos!"
+
+  utter_slots_values:
+    - text: |
+        Los datos ingresados son los siguientes:
+        - Nombres Completos: {fullname}
+        - Lugar de donde se comunica: {city}
+        - Número telefónico: {phone}
+    # - Correo electrónico: {email}
 
   # utter_show_user_type:
   #   - text: "You are a {service_type}."
 
   utter_goodbye:
-    - text: "Adios, ¡que tengas un buen día!"
+    - text: "Adiós, ¡que tengas un buen día!"
 
 actions:
   - action_show_identity

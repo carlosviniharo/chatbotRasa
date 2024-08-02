@@ -2,26 +2,37 @@ version: "3.1"
 
 rules:
 
-  # - rule: ask disclaimer negative
-  #   condition:
-  #     - slot_was_set:
-  #         - identity
-  #     - slot_was_set:
-  #         - disclosure: false
+  # - rule: handle_id_user
   #   steps:
-  #     - action: utter_disclaimer
-  #     - intent: deny
-  #     - action: action_end_conversation
-  #     - action: utter_goodbye
+  #     - action: utter_start_conversation
+  #     - action: identity_form
+  #     - active_loop: identity_form
 
-
-  # - rule: handle chosen option
+  # - rule: submit_identity_form
   #   condition:
-  #     - slot_was_set:
-  #       - identity
+  #     - active_loop: identity_form
   #   steps:
-  #     - intent: choose_option
-  #     - action: action_show_option
+  #     - action: identity_form
+  #     - active_loop: null
+  #     - action: action_show_identity
+
+  - rule: handle_loan_information
+    condition:
+      - slot_was_set:
+        - loan_type: 1
+    steps:
+      - intent: loan_info
+      - action: client_data_form
+      - active_loop: client_data_form
+
+  - rule: submit_loan_form
+    condition:
+      - active_loop: client_data_form
+    steps:
+      - action: client_data_form
+      - active_loop: null
+      - action: utter_slots_values
+      - action: utter_submit
 
   # - rule: show credits
   #   condition:
@@ -51,6 +62,3 @@ rules:
       - intent: goodbye
       - action: utter_goodbye
       - action: action_end_conversation
-
-
-

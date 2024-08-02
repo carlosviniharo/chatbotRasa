@@ -4,6 +4,8 @@ intents:
   - start_conversation
   - inform_identity
   - choose_option
+  - affirm
+  - deny
 #  - inform_fullname
 #  - inform_phone
 #  - inform_address
@@ -15,6 +17,7 @@ intents:
 entities:
   - identity
   - option
+  - disclosure
 #  - phone
 #  - address
 #  - email
@@ -26,6 +29,8 @@ entities:
 #      - phone
 #      - address
 #      - email
+
+
 
 slots:
   identity:
@@ -40,6 +45,18 @@ slots:
     mappings:
       - type: from_entity
         entity: option
+
+
+  disclosure:
+    type: bool
+    mappings:
+    - type: from_intent
+      intent: affirm
+      value: true
+    - type: from_intent
+      intent: deny
+      value: false
+
 
 #  fullname:hol
 #    type: text
@@ -76,13 +93,34 @@ responses:
   utter_identity:
     - text: "Antes de comenzar me puedes brindarm tu numero de identificacion"
 
+  utter_disclaimer:
+    - text: |
+        Al utilizar este canal digital autorizas a la Coperativa de Ahorro y Credito Pilahuin Tio Lta. a acceder a tus datos personales 
+        para la gestión de requerimientos y consultas en general. Para más información sobre los términos y condiciones visita 
+        https://www.pilahintio.com.ec/terminos-y-condiciones
+        ¿Aceptas los términos y condiciones?
+
   utter_services:
     - text: |
         ¿En qué le podemos ayudar?
-        1 - Inversiones
-        2 - Creditos
-        3 - Aperturas de Cuentas
-        4 - Otro
+          1 - Inversiones
+          2 - Creditos
+          3 - Aperturas de Cuentas
+          4 - Otro
+
+  utter_loans:
+    - text: |
+        Le ofrecemos las siguientes opciones de asistencia con respecto a préstamos:
+          1 - Obtener información sobre sus créditos actuales.
+          2 - Solicitar un nuevo crédito.
+
+  # utter_investments:
+  #   - text: |
+  #       Le ofrecemos las siguientes opciones de asistencia con respecto a inversiones:
+
+  # utter_accounts:
+  #   - text: |
+  #       Le ofrecemos las siguientes opciones de asistencia con respecto a cuentas:
 
 #  utter_ask_fullname:
 #    - text: "Por favor, para acceder a la información sería tan amable de brindarme sus Nombres Completos"
@@ -112,10 +150,6 @@ responses:
 
   utter_goodbye:
     - text: "Adios, ¡que tengas un buen día!"
-
-  utter_iamabot:
-    - text: "EZ bruwwwwww"
-
 
 actions:
   - action_show_identity

@@ -68,6 +68,7 @@ class ActionShowOption(Action):
         
         if option == "creditos":
             dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de creditos")
+            return [FollowupAction("utter_loans")]
         elif option == "inversiones":
             dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de inversiones")
         elif option == "cuentas":

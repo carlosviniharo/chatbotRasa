@@ -8,16 +8,37 @@ stories:
     - action: utter_identity
     - intent: inform_identity
     - action: action_show_identity
+    - checkpoint: disclaimer_checkpoint
+
+- story: handle disclaimer (affirm)
+  steps:
+    - checkpoint: disclaimer_checkpoint
+    - action: utter_disclaimer
+    - intent: affirm
     - checkpoint: ask_option_checkpoint
 
-- story: ask_option
+- story: handle disclaimer (deny)
+  steps:
+    - checkpoint: disclaimer_checkpoint
+    - action: utter_disclaimer
+    - intent: deny
+    - action: utter_goodbye
+    - action: action_end_conversation
+
+
+- story: ask option
   steps:
     - checkpoint: ask_option_checkpoint
     - action: utter_services
     - intent: choose_option
     - action: action_show_option
-#    - action: client_data_form
-#    - active_loop: client_data_form
+    - checkpoint: show_services
+
+- story: show_credits
+  steps:
+  - checkpoint: show_services
+  - action: utter_loans
+
 
 #- story: start conversation and collect client data investment
 #  steps:
@@ -31,26 +52,20 @@ stories:
 #    - action: client_data_form
 #    - active_loop: client_data_form
 
-# - story: show_credits
-#   steps:
-#   - checkpoint: choose_option
-#   - intent: choose_option
-#     entities:
-#       - option: "credits"
-#   - action: action_show_option
+
 
 # - story: show_investments
 #   steps:
-#   - checkpoint: choose_option
+#   - checkpoint: show_services
 #   - intent: choose_option
 #     entities:
-#       - option: "investments"
-#   - action: action_show_option
+#     - option: "credits"
+#   - action: utter_investments
 
 # - story: show_accounts
 #   steps:
-#   - checkpoint: choose_option
+#   - checkpoint: show_service
 #   - intent: choose_option
 #     entities:
-#       - option: "accounts"
-#   - action: action_show_option
+#     - option: "credits"
+#   - action: utter_accounts

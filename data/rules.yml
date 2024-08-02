@@ -1,13 +1,19 @@
 version: "3.1"
 
 rules:
-  # - rule: ask option after user ID
+
+  # - rule: ask disclaimer negative
   #   condition:
   #     - slot_was_set:
-  #       - identity
+  #         - identity
+  #     - slot_was_set:
+  #         - disclosure: false
   #   steps:
-  #     - action: action_show_identity
-  #     - action: utter_services
+  #     - action: utter_disclaimer
+  #     - intent: deny
+  #     - action: action_end_conversation
+  #     - action: utter_goodbye
+
 
   # - rule: handle chosen option
   #   condition:
@@ -17,13 +23,13 @@ rules:
   #     - intent: choose_option
   #     - action: action_show_option
 
-  # - rule: handle creditos option
+  # - rule: show credits
+  #   condition:
+  #   - slot_was_set:
+  #     - option: "creditos"
   #   steps:
-  #     - intent: service_loan
-  #       entities:
-  #         - option: "creditos"
-  #     - action: client_data_form
-  #     - active_loop: client_data_form
+  #   - action: action_show_option
+  #   - action: utter_loans
 
   # - rule: activate ask for investment
   #   steps:
@@ -45,4 +51,6 @@ rules:
       - intent: goodbye
       - action: utter_goodbye
       - action: action_end_conversation
+
+
 

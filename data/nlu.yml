@@ -39,6 +39,20 @@ nlu:
     - Información sobre [inversiones](option)
     - Escoge [cuentas](option)
     - Quiero [creditos](option)
+
+- intent: affirm
+  examples: |
+    - Sí
+    - sí, por favor
+    - claro
+
+- intent: deny
+  examples: |
+    - no, no quiero
+    - no
+    - no, no quiero eso
+
+
 #- intent: service_inversions
 #  examples: |
 #    - Soy un usuario regular
@@ -113,10 +127,3 @@ nlu:
     - Hasta la próxima
     - Muchas gracias
     - Bye
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?

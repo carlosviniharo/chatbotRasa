@@ -7,7 +7,7 @@ stories:
     - action: utter_start_conversation
     - action: utter_ask_identity
     - intent: inform_identity
-    - action: action_show_identity
+    - action: action_validate_id
     - checkpoint: disclaimer_checkpoint
 
 - story: handle_disclaimer (affirm)
@@ -15,7 +15,7 @@ stories:
     - checkpoint: disclaimer_checkpoint
     - action: utter_disclaimer
     - intent: affirm
-    - checkpoint: ask_option_checkpoint
+    # - checkpoint: ask_option_checkpoint
 
 - story: handle_disclaimer (deny)
   steps:
@@ -25,18 +25,19 @@ stories:
     - action: utter_goodbye
     - action: action_end_conversation
 
-
 - story: ask_option
   steps:
-    - checkpoint: ask_option_checkpoint
+    # - checkpoint: ask_option_checkpoint
+    - intent: affirm
     - action: utter_services
     - intent: choose_option
     - action: action_show_option
-    - checkpoint: show_services
+    # - checkpoint: show_services
 
 - story: ask_credits
   steps:
-  - checkpoint: show_services
+  # - checkpoint: show_services
+  - action: action_show_option
   - action: utter_loans
   - intent: loan_info
 

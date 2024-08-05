@@ -15,6 +15,10 @@ rules:
   #     - action: identity_form
   #     - active_loop: null
   #     - action: action_show_identity
+  - rule: Handle fallback
+    steps:
+      - intent: nlu_fallback
+      - action: utter_ask_rephrase
 
   - rule: handle_loan_information
     condition:

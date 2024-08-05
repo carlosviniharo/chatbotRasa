@@ -27,9 +27,9 @@ entities:
 
 forms:
 
-  identity_form:
-    required_slots:
-    - identity
+  # identity_form:
+  #   required_slots:
+  #   - identity
 
   client_data_form:
     required_slots:
@@ -136,7 +136,9 @@ responses:
   #       Le ofrecemos las siguientes opciones de asistencia con respecto a cuentas:
 
   utter_ask_fullname:
-    - text: "Por favor, para acceder a la información sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula"
+    - text:  |
+        Por favor, para acceder a la información sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
+        (e.g. Juan Alexander Mazabanda Momposita)
 
   utter_ask_city:
     - text: "Por favor, la ciudad de donde se comunica"
@@ -158,8 +160,8 @@ responses:
         - Número telefónico: {phone}
     # - Correo electrónico: {email}
 
-  # utter_show_user_type:
-  #   - text: "You are a {service_type}."
+  utter_ask_rephrase:
+    - text: "Ups tu ultimo mensaje no lo pude entender, podrias por favor volve a intentarlo"
 
   utter_goodbye:
     - text: "Adiós, ¡que tengas un buen día!"
@@ -167,6 +169,7 @@ responses:
 actions:
   - action_show_identity
   - action_end_conversation
+  - action_validate_id
   - action_show_option
 
 session_config:

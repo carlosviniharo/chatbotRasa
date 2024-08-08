@@ -4,25 +4,18 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
 
-#from typing import Any, Text, Dict, List
 
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-# class ActionEndConversation(Action):
-#     def name(self) -> str:
-#         return "action_end_conversation"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: dict) -> list:
-#         # To end the conversation and clear forms
-#         return [Restarted(), FollowupAction('action_listen')]
-
+import re
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import Restarted, FollowupAction
+from rasa_sdk.forms import FormValidationAction
+from utils.helper import (
+    validate_ecuadorian_id, 
+    validate_ecuadorian_phone,
+    validate_email_string
+)
 
 
 class ActionEndConversation(Action):
@@ -37,22 +30,27 @@ class ActionEndConversation(Action):
         return [Restarted()]
 
 
-class ActionShowIdentity(Action):
 
+class ActionValidateID(Action):
     def name(self) -> str:
-        return "action_show_identity"
-
+        return "action_validate_id"
+    
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: dict) -> list:
-
+        # Extract the identity entity from the latest message
         identity = tracker.get_slot("identity")
-        if identity:
-            dispatcher.utter_message(text=f"Your identity number is {identity}")
-        else:
-            dispatcher.utter_message(text="I could not get your identity number.")
+       
+        # Check the first match as the identity
+        valid_identity = validate_ecuadorian_id(identity)
 
-        return []
+        if valid_identity:
+            dispatcher.utter_message(text=f"Tu número de identificación {identity} ha sido guardado correctamente.")
+            return [SlotSet("identity", identity), FollowupAction("utter_disclaimer")]
+        else:
+            # Identity is invalid
+            dispatcher.utter_message(text="El número de identificación proporcionado no es válido.")
+            return [SlotSet("identity", None), FollowupAction("utter_ask_identity")]
 
 
 class ActionShowOption(Action):
@@ -67,13 +65,49 @@ class ActionShowOption(Action):
         option = tracker.get_slot("option")
         
         if option == "creditos":
-            dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de creditos")
+            return [FollowupAction("utter_loans")]
         elif option == "inversiones":
             dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de inversiones")
         elif option == "cuentas":
             dispatcher.utter_message(text="Un momento ya le ayudo con la informacion de cuentas")
         else:
             dispatcher.utter_message(text=f"Perdon tu respuesta no esta en nuestras opciones")
-            return [FollowupAction("choose_option")]
+            return [FollowupAction("utter_services")]
         
         return []
+    
+class ValidateClientDataForm(FormValidationAction):
+    def name(self) -> str:
+        return "validate_client_info_loan_form"
+
+    def validate_fullname(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        naked_name = tracker.latest_message.get('text')
+        names_splited = re.findall(r"\b[A-Za-z]+\b", naked_name)
+
+        if len(names_splited) >= 2:
+            return {"fullname": naked_name}
+        else:
+            dispatcher.utter_message(response="utter_invalid_fullname")
+            return {"fullname": None}
+
+    def validate_city(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        if re.match(r"^[a-zA-Z\s]{2,}$", slot_value):
+            return {"city": slot_value}
+        else:
+            dispatcher.utter_message(response="utter_invalid_city")
+            return {"city": None}
+
+    def validate_phone(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        if validate_ecuadorian_phone(slot_value):
+            return {"phone": slot_value}
+        else:
+            dispatcher.utter_message(response="utter_invalid_phone")
+            return {"phone": None}
+        
+    def validate_email(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        
+        if validate_email_string(slot_value):
+            return {"email": slot_value}
+        else:
+            dispatcher.utter_message(response="utter_invalid_email")
+            return {"email": None}

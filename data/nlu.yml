@@ -16,29 +16,113 @@ nlu:
 
 - intent: inform_identity
   examples: |
-    - Mi número de identificación es [1234512384](identity)
-    - Tengo el pasaporte número [6789012378](identity)
-    - Mi CI es [54321](identity)
-    - El número es [1111111111](identity)
-    - El pasaporte es [2222223475](identity)
-    - Mi pasaporte es [9876123445](identity)
-    - [9812342765](identity)
+    - [123451238-4](identity)
+    - [678901237-8](identity)
+    - [111111111-1](identity)
+    - [222222347-5](identity)
+    - [987612344-5](identity)
+    - [981234276-5](identity)
+    - Mi cédula es [113245124-2](identity)
+    - Necesitas mi cédula? Es [123451238-4](identity)
+    - Apunta mi cédula, es [678901237-8](identity)
+    - [111111111-1](identity) es mi número de identificación
+    - El número de mi cédula es [222222347-5](identity)
+    - Por favor, toma nota de mi cédula: [987612344-5](identity)
+    - Te paso mi número de cédula: [981234276-5](identity)
+    - Anota la cédula [113245124-2](identity)
+    - [123451238-4](identity) es mi identificación
+    - [678901237-8](identity) es mi número de cédula de identidad
+    - [111111111-1](identity) es la cédula que necesitas
+    - Número de cédula: [222222347-5](identity)
+    - Mi identificación es [987612344-5](identity)
+    - Puedes usar la cédula [981234276-5](identity)
+
+
+# - synonym: option
+#   examples: |
+#     - creditos
+#     - inversiones
+#     - cuentas
 
 - intent: choose_option
   examples: |
-    - Quiero información de mis [creditos](option)
-    - Quiero saber más de [inversiones](option)
-    - Quiero ver mis [cuentas](option)
+    - [creditos](option)
+    - [inversiones](option)
+    - [cuentas](option)
     - Déjame ver mis [creditos](option)
     - Muéstrame [inversiones](option)
     - Elijo [cuentas](option)
-    - 1 [cuentas](option)
-    - 2 [creditos](option)
-    - 3 [inversiones](option)
-    - 4 [otro](option)
-    - Información sobre [inversiones](option)
-    - Escoge [cuentas](option)
+    - Escogo [cuentas](option)
     - Quiero [creditos](option)
+
+- intent: affirm
+  examples: |
+    - Sí
+    - sí, por favor
+    - claro
+    - sí
+    - ¡Sí!
+    - bueno
+    - claro que sí
+    - por supuesto
+    - sí, claro
+    - así es
+    - exacto
+    - sí, estoy de acuerdo
+    - de acuerdo
+    - efectivamente
+    - correcto
+    - sí, así es
+    - si
+
+- intent: deny
+  examples: |
+    - no, no quiero
+    - no
+    - no, no quiero eso
+
+- intent: loan_info
+  examples: |
+    - Información sobre mis créditos vigentes.
+    - Quiero información de mis créditos vigentes.
+    - Dime sobre mis créditos vigentes.
+    - ¿Cuál es la información de mis créditos vigentes?
+    - Información créditos vigentes.
+    - Mis créditos vigentes.
+    - Créditos vigentes información.
+    - Consultar mis créditos vigentes.
+    - Detalles de mis créditos vigentes.
+    - Necesito información de mis créditos vigentes.
+    - Saber sobre mis créditos vigentes.
+    - Información acerca de mis créditos vigentes.
+    - Info de mis créditos actuales.
+    - Créditos actuales.
+    - Información créditos actuales.
+    - Estado de mis créditos vigentes.
+    - Consulta créditos vigentes.
+    - Información de los créditos que tengo.
+    - Info de los créditos que tengo.
+    - Créditos que tengo vigentes.
+    - Créditos vigentes.
+    - Quiero saber sobre mis créditos vigentes.
+    - Información sobre créditos actuales.
+    - ¿Cuál es el estado de mis créditos vigentes?
+    - Estado de créditos vigentes.
+
+- intent: open_loan
+  examples: |
+    - Quiero solicitar un nuevo crédito.
+    - Necesito un nuevo crédito.
+    - Solicitud de crédito nuevo.
+    - Me gustaría solicitar un nuevo crédito.
+    - ¿Cómo puedo solicitar un nuevo crédito?
+    - Deseo solicitar un nuevo crédito.
+    - Aplicar para un nuevo crédito.
+    - Quisiera un nuevo crédito.
+    - ¿Puedo solicitar un nuevo crédito?
+    - Solicitar crédito nuevo.
+
+
 #- intent: service_inversions
 #  examples: |
 #    - Soy un usuario regular
@@ -56,46 +140,70 @@ nlu:
 #    - Yo soy VIP
 
 
-#- intent: inform_fullname
-#  examples: |
-#    - [Miguel Ángel Pérez Soto](fullname)
-#    - [Sofía Valentina Gómez Martínez](fullname)
-#    - [Juan Pablo Ramírez López](fullname)
-#    - [Isabella María Torres Mendoza](fullname)
-#    - [Fernando Alberto Rodríguez Díaz](fullname)
-#    - [Laura Catalina Morales Castillo](fullname)
-#
-#- intent: inform_phone
-#  examples: |
-#    - [0959848609](phone)
-#    - [0963149805](phone)
-#    - [0981800270](phone)
-#    - [0993257096](phone)
-#    - [0939197504](phone)
-#
-#- intent: inform_address
-#  examples: |
-#    - [Tulcan](address)
-#    - [Ibarra](address)
-#    - [Otavalo](address)
-#    - [Quito](address)
-#    - [Cayambe](address)
-#    - [Ambato](address)
-#    - [Manta](address)
-#    - [Santo Domingo](address)
-#
-#- intent: inform_email
-#  examples: |
-#    - [john.doe@example.com](email)
-#    - [jane.smith@company.org](email)
-#    - [admin@website.net](email)
-#    - [contact@business.com](email)
-#    - [info@services.io](email)
-#    - [support@helpdesk.org](email)
-#    - [sales@ecommerce.com](email)
-#    - [marketing@firm.biz](email)
-#    - [customer.service@online.co](email)
-#    - [feedback@products.xyz](email)
+- intent: inform_fullname
+  examples: |
+    - [Miguel Ángel Pérez Soto](fullname)
+    - [Sofía Valentina Gómez Martínez](fullname)
+    - [Juan Pablo Ramírez López](fullname)
+    - [Isabella María Torres Mendoza](fullname)
+    - [Fernando Alberto Rodríguez Díaz](fullname)
+    - [fernando alberto rodríguez díaz](fullname)
+    - [Laura Catalina Morales Castillo](fullname)
+    - Mi nombre es [Miguel Ángel Pérez Soto](fullname)
+    - Soy [Sofía Valentina Gómez Martínez](fullname)
+    - Me llamo [Juan Pablo Ramírez López](fullname)
+    - [Isabella María Torres Mendoza](fullname) es mi nombre
+    - [Fernando Alberto Rodríguez Díaz](fullname) soy yo
+    - Puedes llamarme [Laura Catalina Morales Castillo](fullname)
+
+- intent: inform_city
+  examples: |
+    - [Tulcan](city)
+    - [Ibarra](city)
+    - [Otavalo](city)
+    - [Quito](city)
+    - [Cayambe](city)
+    - [Ambato](city)
+    - [Manta](city)
+    - [Santo Domingo](city)
+
+
+- intent: inform_phone
+  examples: |
+    - Mi número de celular es [0963149805](phone)
+    - [0939197504](phone) es mi número de celular
+    - Puedes contactarme al [0991234567](phone)
+    - Mi teléfono es [0912345678](phone)
+    - Llama al [0956789012](phone)
+    - Me puedes llamar al [0923456789](phone)
+    - Mi número es [0987654321](phone)
+    - Te doy mi número, es [0943216789](phone)
+    - El número de contacto es [0934567890](phone)
+    - El teléfono de mi oficina es [0998765432](phone)
+    - Mi celular es [0911122334](phone)
+    - Puedes llamarme al [0977766554](phone)
+    - Mi teléfono de trabajo es [0965566778](phone)
+    - [0954433221](phone) es mi teléfono personal
+    - Mi número de contacto es [0912349876](phone)
+    - Llámame al [0981230987](phone)
+    - Mi número móvil es [0978905678](phone)
+    - El número de mi casa es [0945698712](phone)
+    - Puedes comunicarte al [0932110987](phone)
+    - Mi contacto es [0958904321](phone)
+
+
+- intent: inform_email
+  examples: |
+    - [john.doe@example.com](email)
+    - [jane.smith@company.org](email)
+    - [admin@website.net](email)
+    - [contact@business.com](email)
+    - [info@services.io](email)
+    - [support@helpdesk.org](email)
+    - [sales@ecommerce.com](email)
+    - [marketing@firm.biz](email)
+    - [customer.service@online.co](email)
+    - [feedback@products.xyz](email)
 
 - intent: goodbye
   examples: |
@@ -106,6 +214,7 @@ nlu:
     - Hasta mañana
     - Nos vemos
     - Chao
+    - stop
     - Gracias
     - Hasta la vista
     - Que te vaya bien
@@ -113,10 +222,3 @@ nlu:
     - Hasta la próxima
     - Muchas gracias
     - Bye
-
-- intent: bot_challenge
-  examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?

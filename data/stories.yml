@@ -1,14 +1,29 @@
 version: "3.1"
 
 stories:
-- story: start conversation and ask user id
+- story: start_conversation_and_ask_user_id
   steps:
     - intent: start_conversation
     - action: utter_start_conversation
-    - action: utter_identity
+    - action: utter_ask_identity
     - intent: inform_identity
-    - action: action_show_identity
+    - action: action_validate_id
+    - checkpoint: disclaimer_checkpoint
+
+- story: handle_disclaimer (affirm)
+  steps:
+    - checkpoint: disclaimer_checkpoint
+    - action: utter_disclaimer
+    - intent: affirm
     - checkpoint: ask_option_checkpoint
+
+- story: handle_disclaimer (deny)
+  steps:
+    - checkpoint: disclaimer_checkpoint
+    - action: utter_disclaimer
+    - intent: deny
+    - action: utter_goodbye
+    - action: action_end_conversation
 
 - story: ask_option
   steps:
@@ -16,8 +31,27 @@ stories:
     - action: utter_services
     - intent: choose_option
     - action: action_show_option
-#    - action: client_data_form
-#    - active_loop: client_data_form
+    - checkpoint: show_services
+
+- story: ask_info_loans
+  steps:
+  - checkpoint: show_services
+  - action: utter_loans
+  - intent: loan_info
+  - action: client_info_loan_form
+  - active_loop: client_info_loan_form
+
+- story: ask_new_loan
+  steps:
+  - checkpoint: show_services
+  - action: utter_loans
+  - intent: open_loan
+  - action: utter_open_loan
+
+- story : end_conversation 
+  steps:
+    - action: utter_slots_values
+    - action: utter_end_loan_info
 
 #- story: start conversation and collect client data investment
 #  steps:
@@ -28,29 +62,23 @@ stories:
 #    - action: action_set_slot
 #      value:
 #        service_type: "investment"  # Set the slot to "investment"
-#    - action: client_data_form
-#    - active_loop: client_data_form
+#    - action: client_info_loan_form
+#    - active_loop: client_info_loan_form
 
-# - story: show_credits
-#   steps:
-#   - checkpoint: choose_option
-#   - intent: choose_option
-#     entities:
-#       - option: "credits"
-#   - action: action_show_option
+
 
 # - story: show_investments
 #   steps:
-#   - checkpoint: choose_option
+#   - checkpoint: show_services
 #   - intent: choose_option
 #     entities:
-#       - option: "investments"
-#   - action: action_show_option
+#     - option: "credits"
+#   - action: utter_investments
 
 # - story: show_accounts
 #   steps:
-#   - checkpoint: choose_option
+#   - checkpoint: show_service
 #   - intent: choose_option
 #     entities:
-#       - option: "accounts"
-#   - action: action_show_option
+#     - option: "credits"
+#   - action: utter_accounts

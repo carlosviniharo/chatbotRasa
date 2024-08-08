@@ -15,7 +15,7 @@ stories:
     - checkpoint: disclaimer_checkpoint
     - action: utter_disclaimer
     - intent: affirm
-    # - checkpoint: ask_option_checkpoint
+    - checkpoint: ask_option_checkpoint
 
 - story: handle_disclaimer (deny)
   steps:
@@ -27,20 +27,31 @@ stories:
 
 - story: ask_option
   steps:
-    # - checkpoint: ask_option_checkpoint
-    - intent: affirm
+    - checkpoint: ask_option_checkpoint
     - action: utter_services
     - intent: choose_option
     - action: action_show_option
-    # - checkpoint: show_services
+    - checkpoint: show_services
 
-- story: ask_credits
+- story: ask_info_loans
   steps:
-  # - checkpoint: show_services
-  - action: action_show_option
+  - checkpoint: show_services
   - action: utter_loans
   - intent: loan_info
+  - action: client_info_loan_form
+  - active_loop: client_info_loan_form
 
+- story: ask_new_loan
+  steps:
+  - checkpoint: show_services
+  - action: utter_loans
+  - intent: open_loan
+  - action: utter_open_loan
+
+- story : end_conversation 
+  steps:
+    - action: utter_slots_values
+    - action: utter_end_loan_info
 
 #- story: start conversation and collect client data investment
 #  steps:
@@ -51,8 +62,8 @@ stories:
 #    - action: action_set_slot
 #      value:
 #        service_type: "investment"  # Set the slot to "investment"
-#    - action: client_data_form
-#    - active_loop: client_data_form
+#    - action: client_info_loan_form
+#    - active_loop: client_info_loan_form
 
 
 

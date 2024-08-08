@@ -5,6 +5,8 @@ All functions required to handle the business logic externally to the Rasa proje
 """
 
 from typing import Text
+import re
+
 
 def validate_ecuadorian_id(id_number: Text) -> bool:
     """
@@ -16,6 +18,11 @@ def validate_ecuadorian_id(id_number: Text) -> bool:
     Returns:
     bool: True if the id_number is valid, False otherwise.
     """
+
+    id_number = (id_number or '').replace('-', '', 1)
+
+    print(id_number)
+
     if len(id_number) != 10 or not id_number.isdigit():
         return False
     
@@ -43,3 +50,38 @@ def validate_ecuadorian_id(id_number: Text) -> bool:
     check_digit = (10 - (total_sum % 10)) % 10
     
     return check_digit == last_digit
+
+
+def validate_ecuadorian_phone(phone_number: str) -> bool:
+    """
+    Validate an Ecuadorian cellular phone number.
+    
+    Args:
+    phone_number (str): The phone number to validate.
+    
+    Returns:
+    bool: True if the phone number is valid, False otherwise.
+    """
+    # Ecuadorian phone numbers should be 10 digits long
+    if len(phone_number) != 10 or not phone_number.isdigit():
+        return False
+    
+    # The first digit should be 0, and the second digit should be 9
+    if phone_number[:2] != "09":
+        return False
+    
+    return True
+
+
+def validate_email_string(email: str) -> bool:
+    """
+    Validate if the provided string is a valid email address.
+    
+    Args:
+    email (str): The email address to validate.
+    
+    Returns:
+    bool: True if valid email, False otherwise.
+    """
+    email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return re.match(email_regex, email) is not None

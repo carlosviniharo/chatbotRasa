@@ -7,11 +7,11 @@ intents:
   - affirm
   - deny
   - loan_info
+  - open_loan
   - inform_fullname
   - inform_city
   - inform_phone
-  # - inform_email
-  # - open_account
+  - inform_email
   - goodbye
 
 entities:
@@ -22,35 +22,23 @@ entities:
   - fullname
   - city
   - phone
-  # - email
-
+  - email
 
 forms:
-
-  # identity_form:
-  #   required_slots:
-  #   - identity
-
-  client_data_form:
+  client_info_loan_form:
     required_slots:
       - fullname
       - city
       - phone
-      # - email
+      - email
 
 slots:
   identity:
-    type: float
-    mappings:
-      - type: from_entity
-        entity: identity
-    # influence_conversation: false
-
-  option:
     type: text
     mappings:
       - type: from_entity
-        entity: option
+        entity: identity
+    influence_conversation: false
 
   disclosure:
     type: bool
@@ -61,15 +49,22 @@ slots:
       - type: from_intent
         intent: deny
         value: false
+    influence_conversation: true
+
+  option:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: option
 
   loan_type:
     type: float
     mappings:
       - type: from_intent
-        intent: affirm
+        intent: loan_info
         value: 1
       - type: from_intent
-        intent: deny
+        intent: open_loan
         value: 2
 
   fullname:
@@ -89,14 +84,18 @@ slots:
     mappings:
       - type: from_entity
         entity: phone
+        conditions:
+        - active_loop: client_info_loan_form
+          requested_slot: phone
 
-  # email:
-  #   type: text
-  #   mappings:
-  #     - type: from_entity
-  #       entity: email
+  email:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: email
 
 responses:
+# Responses for the star of the conversation where it asks the id and the descalaimer of use of personal data.
   utter_start_conversation:
     - text: | 
         ¡Hola! Bienvenido/@ 😊 Gracias por comunicarte con la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. 
@@ -104,7 +103,7 @@ responses:
         Soy PTIO su asistente virtual 🧡🖤
 
   utter_ask_identity:
-    - text: "Antes de comenzar me puedes brindar tu número de identificación (e.g., 1004150883)."
+    - text: "Antes de comenzar me puedes brindar tu número de identificación (por ejemplo, 100415088-3)"
 
   utter_disclaimer:
     - text: |
@@ -112,65 +111,82 @@ responses:
         para la gestión de requerimientos y consultas en general. Para más información sobre los términos y condiciones visita 
         https://www.pilahintio.com.ec/terminos-y-condiciones
         ¿Aceptas los términos y condiciones?
-
+# Responses for the main option menu
   utter_services:
     - text: |
-        ¿En qué le podemos ayudar?
-        - Inversiones
-        - Créditos
-        - Aperturas de Cuentas
-        - Otro
+        Estas son las opciones en las que podemos ayudarte:
+        1. Inversiones
+        2. Créditos
+        3. Aperturas de cuentas
 
+        Por favor, elige una opción (por ejemplo, Créditos).
+
+# Reponses for the the option loan
   utter_loans:
     - text: |
-        Le ofrecemos las siguientes opciones de asistencia con respecto a préstamos:
-          1 - Información sobre sus créditos actuales.
+        Le ofrecemos las siguientes opciones de asistencia con respecto a créditos:
+          1 - Información de mis créditos vigentes.
           2 - Solicitar un nuevo crédito.
 
-  # utter_investments:
-  #   - text: |
-  #       Le ofrecemos las siguientes opciones de asistencia con respecto a inversiones:
+  utter_open_loan:
+    - text: |
+        We woudl need the following information to open a new loan
 
-  # utter_accounts:
-  #   - text: |
-  #       Le ofrecemos las siguientes opciones de asistencia con respecto a cuentas:
 
+#  Responses for the forms, both cases when it is the first case and when the input does not goes throught the validation.
   utter_ask_fullname:
     - text:  |
         Por favor, para acceder a la información sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
         (e.g. Juan Alexander Mazabanda Momposita)
 
   utter_ask_city:
-    - text: "Por favor, la ciudad de donde se comunica"
+    - text: "La ciudad de donde se comunica (e.g. Otavalo)"
 
   utter_ask_phone:
-    - text: "Por favor, para acceder a la información sería tan amable de brindarme su número de teléfono"
+    - text: "Su número de celular (e.g. 0954238704)"
 
-  # utter_ask_email:
-  #   - text: "Por favor, su correo electrónico"
+  utter_ask_email:
+    - text: "Su correo electrónico (e.g. juan@jakaysa.com)"
 
-  utter_submit:
-    - text: "¡Tenemos tus datos!"
+  utter_invalid_fullname:
+    - text: "El nombre proporcionado no es válido. Por favor, intenta nuevamente."
 
+  utter_invalid_city:
+    - text: "La ciudad proporcionada no es válida. Por favor, intenta nuevamente."
+
+  utter_invalid_phone:
+    - text: "El número de teléfono proporcionado no es válido. Por favor, intenta nuevamente."
+    
+# Respinces for summary and submition of the forms
   utter_slots_values:
     - text: |
         Los datos ingresados son los siguientes:
         - Nombres Completos: {fullname}
         - Lugar de donde se comunica: {city}
         - Número telefónico: {phone}
-    # - Correo electrónico: {email}
+        - Correo electrónico: {email}
+  
+  utter_submit:
+  - text: "¡Tenemos tus datos!"
 
   utter_ask_rephrase:
     - text: "Ups tu ultimo mensaje no lo pude entender, podrias por favor volve a intentarlo"
+
+# Responses for the end of the conversations.
+  utter_end_loan_info:
+    - text: |
+        Gracias por contactarse con la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. 
+        En el transcurso del día un asesor de crédito se comunicará con usted mediante llamada telefónica 
+        y le brindará la información correspondiente.
 
   utter_goodbye:
     - text: "Adiós, ¡que tengas un buen día!"
 
 actions:
-  - action_show_identity
   - action_end_conversation
   - action_validate_id
   - action_show_option
+  - validate_client_info_loan_form
 
 session_config:
   session_expiration_time: 60

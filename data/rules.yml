@@ -25,18 +25,27 @@ rules:
       - slot_was_set:
         - loan_type: 1
     steps:
+      - action: utter_loans
       - intent: loan_info
-      - action: client_data_form
-      - active_loop: client_data_form
+      - action: client_info_loan_form
+      - active_loop: client_info_loan_form
 
   - rule: submit_loan_form
     condition:
-      - active_loop: client_data_form
+      - active_loop: client_info_loan_form
     steps:
-      - action: client_data_form
+      - action: client_info_loan_form
       - active_loop: null
-      - action: utter_slots_values
       - action: utter_submit
+      - action: utter_slots_values
+      - action: utter_end_loan_info
+ 
+  - rule: handle_open_loan
+    condition:
+      - slot_was_set:
+        - loan_type: 2
+    steps:
+      - action: utter_open_loan
 
   # - rule: show credits
   #   condition:
@@ -49,14 +58,14 @@ rules:
   # - rule: activate ask for investment
   #   steps:
   #     - intent: investments
-  #     - action: client_data_form
-  #     - active_loop: client_data_form
+  #     - action: client_info_loan_form
+  #     - active_loop: client_info_loan_form
 
   # - rule: submit loan form
   #   condition:
-  #     - active_loop: client_data_form
+  #     - active_loop: client_info_loan_form
   #   steps:
-  #     - action: client_data_form
+  #     - action: client_info_loan_form
   #     - active_loop: null
   #     - action: utter_submit
   #     - action: utter_slots_values

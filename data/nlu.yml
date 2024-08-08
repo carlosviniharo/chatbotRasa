@@ -16,42 +16,43 @@ nlu:
 
 - intent: inform_identity
   examples: |
-    - Mi cédula es [1234512384](identity)
-    - [6789012378](identity) es mi número de cédula
-    - Puedes anotarme con la cédula [1111111111](identity)
-    - Mi número de identificación es [2222223475](identity)
-    - Aquí está mi cédula: [9876123445](identity)
-    - La cédula de mi hermana es [9812342765](identity)
-    - Mi cédula es [1132451242](identity)
-    - Necesitas mi cédula? Es [1234512384](identity)
-    - Apunta mi cédula, es [6789012378](identity)
-    - [1111111111](identity) es mi número de identificación
-    - El número de mi cédula es [2222223475](identity)
-    - Por favor, toma nota de mi cédula: [9876123445](identity)
-    - Te paso mi número de cédula: [9812342765](identity)
-    - Anota la cédula [1132451242](identity)
-    - [1234512384](identity) es mi identificación
-    - [6789012378](identity) es mi número de cédula de identidad
-    - [1111111111](identity) es la cédula que necesitas
-    - Número de cédula: [2222223475](identity)
-    - Mi identificación es [9876123445](identity)
-    - Puedes usar la cédula [9812342765](identity)
-    - [9812342765](identity)
+    - [123451238-4](identity)
+    - [678901237-8](identity)
+    - [111111111-1](identity)
+    - [222222347-5](identity)
+    - [987612344-5](identity)
+    - [981234276-5](identity)
+    - Mi cédula es [113245124-2](identity)
+    - Necesitas mi cédula? Es [123451238-4](identity)
+    - Apunta mi cédula, es [678901237-8](identity)
+    - [111111111-1](identity) es mi número de identificación
+    - El número de mi cédula es [222222347-5](identity)
+    - Por favor, toma nota de mi cédula: [987612344-5](identity)
+    - Te paso mi número de cédula: [981234276-5](identity)
+    - Anota la cédula [113245124-2](identity)
+    - [123451238-4](identity) es mi identificación
+    - [678901237-8](identity) es mi número de cédula de identidad
+    - [111111111-1](identity) es la cédula que necesitas
+    - Número de cédula: [222222347-5](identity)
+    - Mi identificación es [987612344-5](identity)
+    - Puedes usar la cédula [981234276-5](identity)
+
+
+# - synonym: option
+#   examples: |
+#     - creditos
+#     - inversiones
+#     - cuentas
 
 - intent: choose_option
   examples: |
-    - Quiero información de mis [creditos](option)
-    - Quiero saber más de [inversiones](option)
-    - Quiero ver mis [cuentas](option)
+    - [creditos](option)
+    - [inversiones](option)
+    - [cuentas](option)
     - Déjame ver mis [creditos](option)
     - Muéstrame [inversiones](option)
     - Elijo [cuentas](option)
-    - 1 [cuentas](option)
-    - 2 [creditos](option)
-    - 3 [inversiones](option)
-    - 4 [otro](option)
-    - Información sobre [inversiones](option)
-    - Escoge [cuentas](option)
+    - Escogo [cuentas](option)
     - Quiero [creditos](option)
 
 - intent: affirm
@@ -61,6 +62,7 @@ nlu:
     - claro
     - sí
     - ¡Sí!
+    - bueno
     - claro que sí
     - por supuesto
     - sí, claro
@@ -81,27 +83,44 @@ nlu:
 
 - intent: loan_info
   examples: |
-    - Quiero obtener información sobre mis créditos actuales.
-    - Me gustaría saber sobre mis créditos actuales.
-    - ¿Cómo puedo obtener información sobre mis créditos actuales?
-    - Información sobre mis créditos actuales, por favor.
-    - Necesito detalles sobre mis créditos actuales.
-    - ¿Puedo saber sobre mis créditos actuales?
-    - Dime sobre mis créditos actuales.
-    - Quiero saber sobre mis créditos actuales.
-    - ¿Cómo están mis créditos actuales?
-    - ¿Cuál es el estado de mis créditos actuales?
-    - Necesito información sobre mis créditos actuales.
-    - ¿Puedes darme información sobre mis créditos actuales?
-    - ¿Qué hay sobre mis créditos actuales?
-    - Infórmame sobre mis créditos actuales.
-    - Estoy buscando información sobre mis créditos actuales.
-    - Quiero conocer mis créditos actuales.
-    - ¿Puedes decirme sobre mis créditos actuales?
-    - Detalles de mis créditos actuales, por favor.
-    - Me gustaría conocer el estado de mis créditos actuales.
-    - Necesito saber sobre mis créditos actuales.
-    - 1 
+    - Información sobre mis créditos vigentes.
+    - Quiero información de mis créditos vigentes.
+    - Dime sobre mis créditos vigentes.
+    - ¿Cuál es la información de mis créditos vigentes?
+    - Información créditos vigentes.
+    - Mis créditos vigentes.
+    - Créditos vigentes información.
+    - Consultar mis créditos vigentes.
+    - Detalles de mis créditos vigentes.
+    - Necesito información de mis créditos vigentes.
+    - Saber sobre mis créditos vigentes.
+    - Información acerca de mis créditos vigentes.
+    - Info de mis créditos actuales.
+    - Créditos actuales.
+    - Información créditos actuales.
+    - Estado de mis créditos vigentes.
+    - Consulta créditos vigentes.
+    - Información de los créditos que tengo.
+    - Info de los créditos que tengo.
+    - Créditos que tengo vigentes.
+    - Créditos vigentes.
+    - Quiero saber sobre mis créditos vigentes.
+    - Información sobre créditos actuales.
+    - ¿Cuál es el estado de mis créditos vigentes?
+    - Estado de créditos vigentes.
+
+- intent: open_loan
+  examples: |
+    - Quiero solicitar un nuevo crédito.
+    - Necesito un nuevo crédito.
+    - Solicitud de crédito nuevo.
+    - Me gustaría solicitar un nuevo crédito.
+    - ¿Cómo puedo solicitar un nuevo crédito?
+    - Deseo solicitar un nuevo crédito.
+    - Aplicar para un nuevo crédito.
+    - Quisiera un nuevo crédito.
+    - ¿Puedo solicitar un nuevo crédito?
+    - Solicitar crédito nuevo.
 
 
 #- intent: service_inversions
@@ -172,19 +191,19 @@ nlu:
     - Puedes comunicarte al [0932110987](phone)
     - Mi contacto es [0958904321](phone)
 
-#
-#- intent: inform_email
-#  examples: |
-#    - [john.doe@example.com](email)
-#    - [jane.smith@company.org](email)
-#    - [admin@website.net](email)
-#    - [contact@business.com](email)
-#    - [info@services.io](email)
-#    - [support@helpdesk.org](email)
-#    - [sales@ecommerce.com](email)
-#    - [marketing@firm.biz](email)
-#    - [customer.service@online.co](email)
-#    - [feedback@products.xyz](email)
+
+- intent: inform_email
+  examples: |
+    - [john.doe@example.com](email)
+    - [jane.smith@company.org](email)
+    - [admin@website.net](email)
+    - [contact@business.com](email)
+    - [info@services.io](email)
+    - [support@helpdesk.org](email)
+    - [sales@ecommerce.com](email)
+    - [marketing@firm.biz](email)
+    - [customer.service@online.co](email)
+    - [feedback@products.xyz](email)
 
 - intent: goodbye
   examples: |

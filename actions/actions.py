@@ -38,27 +38,15 @@ class ActionValidateID(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: dict) -> list:
-                # Extract the identity entity from the latest message
-        # identity = tracker.get_slot("identity")
-        user_message = tracker.latest_message.get('text')
-        
-        # # Define the validation pattern for the identity (e.g., 10-digit number)
-        # pattern = re.compile(r"^\d{10}$")
-        
-        # # Check if the user message contains a valid identity
-        # matches = pattern.findall(user_message)
-
-        # if not matches:
-        #     dispatcher.utter_message(text="El número de identificación proporcionado no es válido.")
-        #     return [SlotSet("identity", None), FollowupAction("utter_ask_identity")]
+        # Extract the identity entity from the latest message
+        identity = tracker.get_slot("identity")
        
         # Check the first match as the identity
-        print(tracker.get_slot("identity"))
-        valid_identity = validate_ecuadorian_id(user_message)
+        valid_identity = validate_ecuadorian_id(identity)
 
         if valid_identity:
-            dispatcher.utter_message(text=f"Tu número de identificación {user_message} ha sido guardado correctamente.")
-            return [SlotSet("identity", user_message), FollowupAction("utter_disclaimer")]
+            dispatcher.utter_message(text=f"Tu número de identificación {identity} ha sido guardado correctamente.")
+            return [SlotSet("identity", identity), FollowupAction("utter_disclaimer")]
         else:
             # Identity is invalid
             dispatcher.utter_message(text="El número de identificación proporcionado no es válido.")
@@ -95,10 +83,7 @@ class ValidateClientDataForm(FormValidationAction):
     def validate_fullname(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
         naked_name = tracker.latest_message.get('text')
         names_splited = re.findall(r"\b[A-Za-z]+\b", naked_name)
-        # print(slot_value)
-        # print(names_splited)
-        # print(tracker.latest_message.get('text'))
-        
+
         if len(names_splited) >= 2:
             return {"fullname": naked_name}
         else:

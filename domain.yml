@@ -157,7 +157,7 @@ responses:
   utter_invalid_phone:
     - text: "El número de teléfono proporcionado no es válido. Por favor, intenta nuevamente."
     
-# Respinces for summary and submition of the forms
+# Responces for summary and submition of the forms
   utter_slots_values:
     - text: |
         Los datos ingresados son los siguientes:

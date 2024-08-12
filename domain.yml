@@ -98,7 +98,7 @@ responses:
 # Responses for the star of the conversation where it asks the id and the descalaimer of use of personal data.
   utter_start_conversation:
     - text: | 
-        ¡Hola! Bienvenido/@ 😊 Gracias por comunicarte con la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. 
+        ¡Hola! Bienvenid@ 😊 Gracias por comunicarte con la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. 
         La Cooperativa Que Cree En Su Gente.
         Soy PTIO su asistente virtual 🧡🖤
 
@@ -114,29 +114,31 @@ responses:
 # Responses for the main option menu
   utter_services:
     - text: |
-        Estas son las opciones en las que podemos ayudarte:
-        1. Inversiones
-        2. Créditos
-        3. Aperturas de cuentas
+        De las siguientes opciones disponibles:
+          - Inversiones
+          - Créditos
+          - Aperturas de cuentas
 
-        Por favor, elige una opción (por ejemplo, Créditos).
+        ¿Cuál de estas opciones te gustaría elegir? 😊
 
 # Reponses for the the option loan
   utter_loans:
     - text: |
-        Le ofrecemos las siguientes opciones de asistencia con respecto a créditos:
-          1 - Información de mis créditos vigentes.
-          2 - Solicitar un nuevo crédito.
+        Con respecto a créditos, te podemos ayudar con las siguientes opciones:
+          - Información de mis créditos.
+          - Solicitar un crédito.
+
+        ¿Cuál de estas opciones te gustaría explorar?
 
   utter_open_loan:
     - text: |
-        We woudl need the following information to open a new loan
+        We would need the following information to open a new loan
 
 
 #  Responses for the forms, both cases when it is the first case and when the input does not goes throught the validation.
   utter_ask_fullname:
     - text:  |
-        Por favor, para acceder a la información sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
+        Por favor, para acceder a la información de sus créditos sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
         (e.g. Juan Alexander Mazabanda Momposita)
 
   utter_ask_city:

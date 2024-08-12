@@ -6,12 +6,12 @@ nlu:
     - hola
     - buenos días
     - qué tal
-    - vamos
     - hola amigo
     - buenas tardes
     - buenas noches
     - hola, ¿cómo estás?
     - hola, ¿qué tal?
+    - hey
 
 
 - intent: inform_identity
@@ -83,44 +83,49 @@ nlu:
 
 - intent: loan_info
   examples: |
-    - Información sobre mis créditos vigentes.
-    - Quiero información de mis créditos vigentes.
-    - Dime sobre mis créditos vigentes.
-    - ¿Cuál es la información de mis créditos vigentes?
-    - Información créditos vigentes.
-    - Mis créditos vigentes.
-    - Créditos vigentes información.
-    - Consultar mis créditos vigentes.
+    - Información sobre mis créditos.
+    - Dime sobre mis créditos actuales.
+    - ¿Qué pasa con mis créditos?
+    - Consulta de mis créditos.
+    - Estado de mis créditos.
     - Detalles de mis créditos vigentes.
-    - Necesito información de mis créditos vigentes.
-    - Saber sobre mis créditos vigentes.
-    - Información acerca de mis créditos vigentes.
-    - Info de mis créditos actuales.
-    - Créditos actuales.
-    - Información créditos actuales.
-    - Estado de mis créditos vigentes.
-    - Consulta créditos vigentes.
-    - Información de los créditos que tengo.
-    - Info de los créditos que tengo.
-    - Créditos que tengo vigentes.
-    - Créditos vigentes.
-    - Quiero saber sobre mis créditos vigentes.
-    - Información sobre créditos actuales.
-    - ¿Cuál es el estado de mis créditos vigentes?
-    - Estado de créditos vigentes.
+    - Quiero saber sobre mis créditos.
+    - ¿Cuál es la información de mis créditos?
+    - Información actual de mis créditos.
+    - ¿Cómo están mis créditos?
+    - Actualización de mis créditos.
+    - ¿Puedes darme información sobre mis créditos?
+    - Consulta sobre créditos.
+    - Mis créditos, por favor.
+    - Quiero consultar mis créditos.
+    - Información acerca de mis créditos.
+    - Dime los detalles de mis créditos.
+    - ¿Cómo van mis créditos?
+    - ¿Cuál es el estado de mis créditos?
+    - Solicitud de información sobre mis créditos.
 
 - intent: open_loan
   examples: |
-    - Quiero solicitar un nuevo crédito.
-    - Necesito un nuevo crédito.
-    - Solicitud de crédito nuevo.
-    - Me gustaría solicitar un nuevo crédito.
-    - ¿Cómo puedo solicitar un nuevo crédito?
-    - Deseo solicitar un nuevo crédito.
-    - Aplicar para un nuevo crédito.
-    - Quisiera un nuevo crédito.
-    - ¿Puedo solicitar un nuevo crédito?
-    - Solicitar crédito nuevo.
+    - Quiero solicitar un crédito.
+    - Necesito un crédito.
+    - Deseo pedir un crédito.
+    - Solicitud de un crédito.
+    - ¿Cómo puedo solicitar un crédito?
+    - Quiero pedir un crédito.
+    - Solicitar un préstamo.
+    - Me gustaría solicitar un crédito.
+    - Necesito solicitar un crédito.
+    - Quiero aplicar para un crédito.
+    - ¿Cómo solicito un crédito?
+    - Quisiera un crédito.
+    - Solicitar crédito.
+    - Estoy interesado en un crédito.
+    - Pedir un crédito.
+    - Ayuda para solicitar un crédito.
+    - Deseo aplicar para un crédito.
+    - ¿Cómo puedo pedir un crédito?
+    - Quisiera pedir un crédito.
+    - Solicitar un nuevo crédito.
 
 
 #- intent: service_inversions
@@ -163,9 +168,14 @@ nlu:
     - [Otavalo](city)
     - [Quito](city)
     - [Cayambe](city)
-    - [Ambato](city)
+    - [Portoviejo](city)
     - [Manta](city)
     - [Santo Domingo](city)
+    - [MonteCristi](city)
+    - [Lago Agrio](city)
+    - [Tumbaco](city)
+    - [Pimampiro](city)
+
 
 
 - intent: inform_phone

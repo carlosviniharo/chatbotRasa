@@ -44,7 +44,7 @@ pipeline:
   
 - name: DucklingEntityExtractor
   url: http://10.193.61.66:8000
-  dimensions: ["number"]
+  dimensions: ["number", "amount-of-money"]
 - name: WhitespaceTokenizer
 - name: RegexFeaturizer
 - name: LexicalSyntacticFeaturizer

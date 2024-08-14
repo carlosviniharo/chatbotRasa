@@ -38,12 +38,6 @@ nlu:
     - Puedes usar la cédula [981234276-5](identity)
 
 
-# - synonym: option
-#   examples: |
-#     - creditos
-#     - inversiones
-#     - cuentas
-
 - intent: choose_option
   examples: |
     - [creditos](option)
@@ -127,23 +121,7 @@ nlu:
     - Quisiera pedir un crédito.
     - Solicitar un nuevo crédito.
 
-
-#- intent: service_inversions
-#  examples: |
-#    - Soy un usuario regular
-#    - Yo tengo una cuenta regular
-#    - Tengo una cuenta regular
-#    - Soy cliente regular
-#    - Yo soy regular
-
-#- intent: service_account
-#  examples: |
-#    - Soy un usuario VIP
-#    - Yo tengo una cuenta VIP
-#    - Tengo una cuenta VIP
-#    - Soy cliente VIP
-#    - Yo soy VIP
-
+# Data for the variables used in the forms 
 
 - intent: inform_fullname
   examples: |
@@ -234,6 +212,23 @@ nlu:
     - [Arquitecto](occupation)
     - [Enfermero](occupation)
     - [Operador de maquinaria](occupation)
+
+- intent: inform_salary
+  examples: |
+    - [450](salary)
+    - [780](salary)
+    - [600](salary)
+    - [860](salary)
+    - [700](salary)
+
+- intent: inform_amount_required
+  examples: |
+    - Necesito un préstamo de [5000](amount_required)
+    - Quiero pedir [7000](amount_required) dólares
+    - Estoy buscando un préstamo de [6000](amount_required)
+    - Quisiera un crédito de [8000](amount_required)
+    - Estoy interesado en un préstamo por [5500](amount_required)
+    - El monto del préstamo que deseo es de [4000](amount_required)
  
 - intent: goodbye
   examples: |

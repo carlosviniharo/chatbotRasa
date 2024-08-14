@@ -118,5 +118,15 @@ class ValidateClientDataForm(FormValidationAction):
             return {"email": None}
 
 class ValidateClientNewLoanForm(ValidateClientDataForm):
+
     def name(self) -> str:
         return "validate_client_new_loan_form"
+    
+    def validate_salary(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        print(slot_value)
+        basic_wage = 450
+        if int(slot_value) >= basic_wage:
+            return {"salary": slot_value}
+        else:
+            dispatcher.utter_message(response="utter_invalid_salary")
+            return {"salary": None}

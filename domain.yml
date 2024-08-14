@@ -13,6 +13,8 @@ intents:
   - inform_phone
   - inform_email
   - inform_occupation
+  - inform_salary
+  - inform_amount_required
   - goodbye
 
 entities:
@@ -25,6 +27,8 @@ entities:
   - phone
   - email
   - occupation
+  - salary
+  - amount_required
 
 forms:
   client_info_loan_form:
@@ -41,6 +45,8 @@ forms:
       - phone
       - email
       - occupation
+      - salary
+      - amount_required
 
 slots:
   identity:
@@ -110,6 +116,18 @@ slots:
       - type: from_entity
         entity: occupation
 
+  salary:
+    type: float
+    mappings:
+      - type: from_entity
+        entity: salary
+
+  amount_required:  # New slot for the loan amount
+    type: float
+    mappings:
+      - type: from_entity
+        entity: amount_required
+
 responses:
 # Responses for the star of the conversation where it asks the id and the descalaimer of use of personal data.
   utter_start_conversation:
@@ -154,7 +172,7 @@ responses:
 #  Responses for the forms, both cases when it is the first case and when the input does not goes throught the validation.
   utter_ask_fullname:
     - text:  |
-        Por favor, para acceder a la información de sus créditos sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
+        Por favor, sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
         (e.g. Juan Alexander Mazabanda Momposita)
 
   utter_ask_city:
@@ -169,6 +187,12 @@ responses:
   utter_ask_occupation:
     - text: "Su ocupación (e.g. Ingeniero de sistemas)"
 
+  utter_ask_salary:
+    - text: "Sus ingresos mensuales aproximados (e.g. 450)"
+
+  utter_ask_amount_required:
+    - text: "Cual es el monto de dinero necesita (e.g. 5000)"
+
   utter_invalid_fullname:
     - text: "El nombre proporcionado no es válido. Por favor, intenta nuevamente."
 
@@ -178,9 +202,14 @@ responses:
   utter_invalid_phone:
     - text: "El número de teléfono proporcionado no es válido. Por favor, intenta nuevamente."
 
-  utter_invalid_accupation:
+  utter_invalid_occupation:
     - text: "La profesion proporcionada no es válida. Por favor, intenta nuevamente."
+
+  utter_invalid_salary:
+    - text: "Asegurate de ingresar una cantidad valida. Por favor, intenta nuevamente."
     
+  utter_invalid_amount_required:
+    - text: "El monto proporcionada no es válido. Por favor, intenta nuevamente."
 # Responces for summary and submition of the forms
   utter_submit:
   - text: "¡Tenemos tus datos!"
@@ -196,11 +225,13 @@ responses:
   utter_summary_ask_loan:
   - text: |
           Los datos ingresados son los siguientes:
-          Nombres Completos: {fullname}
-          Lugar de donde se comunica: {city}
-          Número telefónico: {phone}
-          Correo electrónico: {email}
-          Ocupacion: {occupation}
+          - Nombres Completos: {fullname}
+          - Lugar de donde se comunica: {city}
+          - Número telefónico: {phone}
+          - Correo electrónico: {email}
+          - Ocupacion: {occupation}
+          - Ingresos mensuales aproximados: {salary} 
+          - Valor Solicitado: {amount_required}
   
   utter_ask_rephrase:
     - text: "Ups tu ultimo mensaje no lo pude entender, podrias por favor volve a intentarlo"
@@ -210,7 +241,7 @@ responses:
     - text: |
         Gracias por contactarse con la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. 
         En el transcurso del día un asesor de crédito se comunicará con usted mediante llamada telefónica 
-        y le brindará la información correspondiente.
+        y le brindará la información correspondientea a su requerimento.
 
   utter_goodbye:
     - text: "Adiós, ¡que tengas un buen día!"

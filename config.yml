@@ -60,7 +60,7 @@ pipeline:
   model_name: "bert"
   model_weights: "rasa/LaBSE"
 - name: DIETClassifier
-  epochs: 200
+  epochs: 150
   constrain_similarities: true
   # entity_recognition: false
 - name: EntitySynonymMapper

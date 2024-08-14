@@ -45,30 +45,21 @@ rules:
       - slot_was_set:
         - loan_type: 2
     steps:
+      - action: utter_loans
+      - intent: open_loan
       - action: utter_open_loan
-
-  # - rule: show credits
-  #   condition:
-  #   - slot_was_set:
-  #     - option: "creditos"
-  #   steps:
-  #   - action: action_show_option
-  #   - action: utter_loans
-
-  # - rule: activate ask for investment
-  #   steps:
-  #     - intent: investments
-  #     - action: client_info_loan_form
-  #     - active_loop: client_info_loan_form
-
-  # - rule: submit loan form
-  #   condition:
-  #     - active_loop: client_info_loan_form
-  #   steps:
-  #     - action: client_info_loan_form
-  #     - active_loop: null
-  #     - action: utter_submit
-  #     - action: utter_slots_values
+      - action: client_new_loan_form
+      - active_loop: client_new_loan_form
+  
+  - rule: submit_new_loan_form
+    condition:
+      - active_loop: client_new_loan_form
+    steps:
+      - action: client_new_loan_form
+      - active_loop: null
+      - action: utter_submit
+      - action: utter_summary_ask_loan
+      - action: utter_end_loan_info
 
   - rule: just say goodbye
     steps:

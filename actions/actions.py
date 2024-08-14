@@ -83,6 +83,7 @@ class ValidateClientDataForm(FormValidationAction):
     def validate_fullname(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
         naked_name = tracker.latest_message.get('text')
         names_splited = re.findall(r"\b[A-Za-z]+\b", naked_name)
+        print(names_splited)
 
         if len(names_splited) >= 2:
             return {"fullname": naked_name}
@@ -91,6 +92,7 @@ class ValidateClientDataForm(FormValidationAction):
             return {"fullname": None}
 
     def validate_city(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        print(slot_value)
         if re.match(r"^[a-zA-Z\s]{2,}$", slot_value):
             return {"city": slot_value}
         else:
@@ -98,16 +100,23 @@ class ValidateClientDataForm(FormValidationAction):
             return {"city": None}
 
     def validate_phone(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
-        if validate_ecuadorian_phone(slot_value):
-            return {"phone": slot_value}
+        phone = tracker.get_slot("phone")
+        print(phone)
+        print(slot_value)
+        if validate_ecuadorian_phone(phone):
+            return {"phone": phone}
         else:
             dispatcher.utter_message(response="utter_invalid_phone")
             return {"phone": None}
         
     def validate_email(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
-        
+        print(slot_value)
         if validate_email_string(slot_value):
             return {"email": slot_value}
         else:
             dispatcher.utter_message(response="utter_invalid_email")
             return {"email": None}
+
+class ValidateClientNewLoanForm(ValidateClientDataForm):
+    def name(self) -> str:
+        return "validate_client_new_loan_form"

@@ -21,8 +21,6 @@ def validate_ecuadorian_id(id_number: Text) -> bool:
 
     id_number = (id_number or '').replace('-', '', 1)
 
-    print(id_number)
-
     if len(id_number) != 10 or not id_number.isdigit():
         return False
     

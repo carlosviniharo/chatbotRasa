@@ -47,11 +47,13 @@ stories:
   - action: utter_loans
   - intent: open_loan
   - action: utter_open_loan
+  - action: client_new_loan_form
+  - active_loop: client_new_loan_form
 
-- story : end_conversation 
-  steps:
-    - action: utter_slots_values
-    - action: utter_end_loan_info
+# - story : end_conversation 
+#   steps:
+#     - action: utter_slots_values
+#     - action: utter_end_loan_info
 
 #- story: start conversation and collect client data investment
 #  steps:

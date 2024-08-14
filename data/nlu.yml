@@ -157,9 +157,13 @@ nlu:
     - Mi nombre es [Miguel Ángel Pérez Soto](fullname)
     - Soy [Sofía Valentina Gómez Martínez](fullname)
     - Me llamo [Juan Pablo Ramírez López](fullname)
+    - [Juan Pablo Ramírez](fullname)
     - [Isabella María Torres Mendoza](fullname) es mi nombre
     - [Fernando Alberto Rodríguez Díaz](fullname) soy yo
-    - Puedes llamarme [Laura Catalina Morales Castillo](fullname)
+    - [fernando alberto díaz](fullname)
+    - [Fernando del Paso Valverde](fullname)
+    - [Victor Hulme](fullname)
+    - Mi nombre completo es [Laura Catalina Morales Castillo](fullname)
 
 - intent: inform_city
   examples: |
@@ -175,8 +179,6 @@ nlu:
     - [Lago Agrio](city)
     - [Tumbaco](city)
     - [Pimampiro](city)
-
-
 
 - intent: inform_phone
   examples: |
@@ -201,11 +203,12 @@ nlu:
     - Puedes comunicarte al [0932110987](phone)
     - Mi contacto es [0958904321](phone)
 
-
 - intent: inform_email
   examples: |
-    - [john.doe@example.com](email)
+    - [john.doe@gmail.com](email)
     - [jane.smith@company.org](email)
+    - [carlos.haro@pilahuintio.com](email)]
+    - [cinthya.lema@outlook.com](email)
     - [admin@website.net](email)
     - [contact@business.com](email)
     - [info@services.io](email)
@@ -213,8 +216,25 @@ nlu:
     - [sales@ecommerce.com](email)
     - [marketing@firm.biz](email)
     - [customer.service@online.co](email)
-    - [feedback@products.xyz](email)
+    - [feedback@products.xyz](email)  
 
+- intent: inform_occupation
+  examples: |
+    - [Ingeniero](occupation)
+    - [Estudiante](occupation)
+    - [Profesor](occupation)
+    - [Abogado](occupation)
+    - [Medico](occupation)
+    - [Agricultor](occupation)
+    - [Profesor](occupation)
+    - [Médico](occupation)
+    - [Contador](occupation)
+    - [Comerciante](occupation)
+    - [Abogado](occupation)
+    - [Arquitecto](occupation)
+    - [Enfermero](occupation)
+    - [Operador de maquinaria](occupation)
+ 
 - intent: goodbye
   examples: |
     - ok

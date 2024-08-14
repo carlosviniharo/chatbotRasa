@@ -12,6 +12,7 @@ intents:
   - inform_city
   - inform_phone
   - inform_email
+  - inform_occupation
   - goodbye
 
 entities:
@@ -23,6 +24,7 @@ entities:
   - city
   - phone
   - email
+  - occupation
 
 forms:
   client_info_loan_form:
@@ -31,6 +33,14 @@ forms:
       - city
       - phone
       - email
+
+  client_new_loan_form:
+    required_slots:
+      - fullname
+      - city
+      - phone
+      - email
+      - occupation
 
 slots:
   identity:
@@ -84,15 +94,21 @@ slots:
     mappings:
       - type: from_entity
         entity: phone
-        conditions:
-        - active_loop: client_info_loan_form
-          requested_slot: phone
+        # conditions:
+        # - active_loop: client_info_loan_form
+        #   requested_slot: phone
 
   email:
     type: text
     mappings:
       - type: from_entity
         entity: email
+
+  occupation:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: occupation
 
 responses:
 # Responses for the star of the conversation where it asks the id and the descalaimer of use of personal data.
@@ -149,6 +165,9 @@ responses:
 
   utter_ask_email:
     - text: "Su correo electrónico (e.g. juan@jakaysa.com)"
+  
+  utter_ask_occupation:
+    - text: "Su ocupación (e.g. Ingeniero de sistemas)"
 
   utter_invalid_fullname:
     - text: "El nombre proporcionado no es válido. Por favor, intenta nuevamente."
@@ -158,8 +177,14 @@ responses:
 
   utter_invalid_phone:
     - text: "El número de teléfono proporcionado no es válido. Por favor, intenta nuevamente."
+
+  utter_invalid_accupation:
+    - text: "La profesion proporcionada no es válida. Por favor, intenta nuevamente."
     
 # Responces for summary and submition of the forms
+  utter_submit:
+  - text: "¡Tenemos tus datos!"
+  
   utter_slots_values:
     - text: |
         Los datos ingresados son los siguientes:
@@ -168,9 +193,15 @@ responses:
         - Número telefónico: {phone}
         - Correo electrónico: {email}
   
-  utter_submit:
-  - text: "¡Tenemos tus datos!"
-
+  utter_summary_ask_loan:
+  - text: |
+          Los datos ingresados son los siguientes:
+          Nombres Completos: {fullname}
+          Lugar de donde se comunica: {city}
+          Número telefónico: {phone}
+          Correo electrónico: {email}
+          Ocupacion: {occupation}
+  
   utter_ask_rephrase:
     - text: "Ups tu ultimo mensaje no lo pude entender, podrias por favor volve a intentarlo"
 
@@ -189,6 +220,7 @@ actions:
   - action_validate_id
   - action_show_option
   - validate_client_info_loan_form
+  - validate_client_new_loan_form
 
 session_config:
   session_expiration_time: 60

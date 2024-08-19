@@ -6,21 +6,21 @@ stories:
     - intent: start_conversation
     - action: utter_start_conversation
     - action: utter_ask_identity
-    - intent: inform_identity
+    - intent: inform_personal_numbers
     - action: action_validate_id
     - checkpoint: disclaimer_checkpoint
 
 - story: handle_disclaimer (affirm)
   steps:
     - checkpoint: disclaimer_checkpoint
-    - action: utter_disclaimer
+    - action: utter_ask_disclaimer
     - intent: affirm
     - checkpoint: ask_option_checkpoint
 
 - story: handle_disclaimer (deny)
   steps:
     - checkpoint: disclaimer_checkpoint
-    - action: utter_disclaimer
+    - action: utter_ask_disclaimer
     - intent: deny
     - action: utter_goodbye
     - action: action_end_conversation
@@ -30,6 +30,7 @@ stories:
     - checkpoint: ask_option_checkpoint
     - action: utter_services
     - intent: choose_option
+    - action: action_check_disclaimer
     - action: action_show_option
     - checkpoint: show_services
 
@@ -38,6 +39,7 @@ stories:
   - checkpoint: show_services
   - action: utter_loans
   - intent: loan_info
+  - action: action_check_disclaimer
   - action: client_info_loan_form
   - active_loop: client_info_loan_form
 
@@ -46,12 +48,14 @@ stories:
   - checkpoint: show_services
   - action: utter_loans
   - intent: open_loan
-  - action: utter_open_loan
+  - action: action_check_disclaimer
+  - action: client_new_loan_form
+  - active_loop: client_new_loan_form
 
-- story : end_conversation 
-  steps:
-    - action: utter_slots_values
-    - action: utter_end_loan_info
+# - story : end_conversation 
+#   steps:
+#     - action: utter_slots_values
+#     - action: utter_end_loan_info
 
 #- story: start conversation and collect client data investment
 #  steps:

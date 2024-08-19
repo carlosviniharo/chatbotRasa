@@ -21,8 +21,6 @@ def validate_ecuadorian_id(id_number: Text) -> bool:
 
     id_number = (id_number or '').replace('-', '', 1)
 
-    print(id_number)
-
     if len(id_number) != 10 or not id_number.isdigit():
         return False
     
@@ -62,6 +60,7 @@ def validate_ecuadorian_phone(phone_number: str) -> bool:
     Returns:
     bool: True if the phone number is valid, False otherwise.
     """
+
     # Ecuadorian phone numbers should be 10 digits long
     if len(phone_number) != 10 or not phone_number.isdigit():
         return False

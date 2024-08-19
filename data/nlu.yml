@@ -14,33 +14,27 @@ nlu:
     - hey
 
 
-- intent: inform_identity
+- intent: inform_personal_numbers
   examples: |
-    - [123451238-4](identity)
-    - [678901237-8](identity)
-    - [111111111-1](identity)
-    - [222222347-5](identity)
-    - [987612344-5](identity)
-    - [981234276-5](identity)
-    - Mi cédula es [113245124-2](identity)
-    - Necesitas mi cédula? Es [123451238-4](identity)
-    - Apunta mi cédula, es [678901237-8](identity)
-    - [111111111-1](identity) es mi número de identificación
-    - El número de mi cédula es [222222347-5](identity)
-    - Por favor, toma nota de mi cédula: [987612344-5](identity)
-    - Te paso mi número de cédula: [981234276-5](identity)
-    - Anota la cédula [113245124-2](identity)
-    - [123451238-4](identity) es mi identificación
-    - [678901237-8](identity) es mi número de cédula de identidad
-    - [111111111-1](identity) es la cédula que necesitas
-    - Número de cédula: [222222347-5](identity)
-    - Mi identificación es [987612344-5](identity)
-    - Puedes usar la cédula [981234276-5](identity)
-
+    - [1004140883](personal_numbers)
+    - [1755224423](personal_numbers)
+    - [1004565402](personal_numbers)
+    - [2150057988](personal_numbers)
+    - [0700652068](personal_numbers)
+    - [0915916753](personal_numbers)
+    - [0702843731](personal_numbers)
+    - [0963149805](personal_numbers)
+    - [0939197504](personal_numbers)
+    - [0991234567](personal_numbers)
+    - [0956789012](personal_numbers)
+    - [0923456789](personal_numbers)
 
 - intent: choose_option
   examples: |
     - [creditos](option)
+    - [créditos](option)
+    - La segunda opcion [créditos](option)
+    - Segunda opcion [créditos](option)
     - [inversiones](option)
     - [cuentas](option)
     - Déjame ver mis [creditos](option)
@@ -120,6 +114,7 @@ nlu:
     - ¿Cómo puedo pedir un crédito?
     - Quisiera pedir un crédito.
     - Solicitar un nuevo crédito.
+    - solicitar creditos
 
 # Data for the variables used in the forms 
 
@@ -158,28 +153,28 @@ nlu:
     - [Tumbaco](city)
     - [Pimampiro](city)
 
-- intent: inform_phone
-  examples: |
-    - Mi número de celular es [0963149805](phone)
-    - [0939197504](phone) es mi número de celular
-    - Puedes contactarme al [0991234567](phone)
-    - Mi teléfono es [0912345678](phone)
-    - Llama al [0956789012](phone)
-    - Me puedes llamar al [0923456789](phone)
-    - Mi número es [0987654321](phone)
-    - Te doy mi número, es [0943216789](phone)
-    - El número de contacto es [0934567890](phone)
-    - El teléfono de mi oficina es [0998765432](phone)
-    - Mi celular es [0911122334](phone)
-    - Puedes llamarme al [0977766554](phone)
-    - Mi teléfono de trabajo es [0965566778](phone)
-    - [0954433221](phone) es mi teléfono personal
-    - Mi número de contacto es [0912349876](phone)
-    - Llámame al [0981230987](phone)
-    - Mi número móvil es [0978905678](phone)
-    - El número de mi casa es [0945698712](phone)
-    - Puedes comunicarte al [0932110987](phone)
-    - Mi contacto es [0958904321](phone)
+# - intent: inform_phone
+#   examples: |
+#     - [963149805](phone)
+#     - [939197504](phone)
+#     - [991234567](phone)
+#     - [956789012](phone)
+#     - [923456789](phone)
+#     - Mi teléfono es [912345678](phone)
+#     - Mi número es [987654321](phone)
+#     - Te doy mi número, es [943216789](phone)
+#     - El número de contacto es [934567890](phone)
+#     - El teléfono de mi oficina es [998765432](phone)
+#     - Mi celular es [911122334](phone)
+#     - Puedes llamarme al [977766554](phone)
+#     - Mi teléfono de trabajo es [965566778](phone)
+#     - [954433221](phone) es mi teléfono personal
+#     - Mi número de contacto es [912349876](phone)
+#     - Llámame al [981230987](phone)
+#     - Mi número móvil es [978905678](phone)
+#     - El número de mi casa es [945698712](phone)
+#     - Puedes comunicarte al [932110987](phone)
+#     - Mi contacto es [958904321](phone)
 
 - intent: inform_email
   examples: |
@@ -212,24 +207,47 @@ nlu:
     - [Arquitecto](occupation)
     - [Enfermero](occupation)
     - [Operador de maquinaria](occupation)
+    - [Ing Sistemas](occupation)
 
-- intent: inform_salary
-  examples: |
-    - [450](salary)
-    - [780](salary)
-    - [600](salary)
-    - [860](salary)
-    - [700](salary)
+# - intent: inform_salary
+#   examples: |
+#     - [4500](salary)
+#     - [1000](salary)
+#     - [780](salary)
+#     - [600](salary)
+#     - [860](salary)
+#     - [700](salary)
 
-- intent: inform_amount_required
+
+# - intent: inform_amount_required
+#   examples: |
+#     - Necesito un préstamo de [5000](amount_required)
+#     - Quiero pedir [7000](amount_required) dólares
+#     - [600](amount_required)
+#     - [1000](amount_required)
+#     - [4000](amount_required)
+#     - [10000](amount_required)
+#     - [200000](amount_required)
+#     - [300000](amount_required)
+
+- intent: inform_money
   examples: |
-    - Necesito un préstamo de [5000](amount_required)
-    - Quiero pedir [7000](amount_required) dólares
-    - Estoy buscando un préstamo de [6000](amount_required)
-    - Quisiera un crédito de [8000](amount_required)
-    - Estoy interesado en un préstamo por [5500](amount_required)
-    - El monto del préstamo que deseo es de [4000](amount_required)
+    - [300000](money)
+    - [200000](money)
+    - [4500](money)
+    - [1000](money)
+    - [780](money)
+    - [600](money)
+    - [860](money)
+    - [700](money)
+
+
  
+# - Estoy buscando un préstamo de [6000](amount_required)
+# - Quisiera un crédito de [8000](amount_required)
+# - Estoy interesado en un préstamo por [5000](amount_required)
+# - El monto del préstamo que deseo es de [4000](amount_required)
+
 - intent: goodbye
   examples: |
     - ok

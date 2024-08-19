@@ -27,6 +27,7 @@ rules:
     steps:
       - action: utter_loans
       - intent: loan_info
+      - action: action_check_disclaimer
       - action: client_info_loan_form
       - active_loop: client_info_loan_form
 
@@ -47,7 +48,7 @@ rules:
     steps:
       - action: utter_loans
       - intent: open_loan
-      # - action: utter_open_loan
+      - action: action_check_disclaimer
       - action: client_new_loan_form
       - active_loop: client_new_loan_form
   

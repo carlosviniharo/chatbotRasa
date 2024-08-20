@@ -13,7 +13,6 @@ nlu:
     - hola, ¿qué tal?
     - hey
 
-
 - intent: inform_personal_numbers
   examples: |
     - [1004140883](personal_numbers)
@@ -62,6 +61,8 @@ nlu:
     - correcto
     - sí, así es
     - si
+    - ok
+    - Ok
 
 - intent: deny
   examples: |
@@ -250,7 +251,6 @@ nlu:
 
 - intent: goodbye
   examples: |
-    - ok
     - Adiós
     - Hasta luego
     - Hasta pronto

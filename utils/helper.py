@@ -60,7 +60,7 @@ def validate_ecuadorian_phone(phone_number: str) -> bool:
     Returns:
     bool: True if the phone number is valid, False otherwise.
     """
-
+    
     # Ecuadorian phone numbers should be 10 digits long
     if len(phone_number) != 10 or not phone_number.isdigit():
         return False

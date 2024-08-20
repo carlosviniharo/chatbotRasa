@@ -4,7 +4,6 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
 
-
 import re
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -29,27 +28,27 @@ class ActionEndConversation(Action):
         return [Restarted()]
 
 
-class ActionValidateID(Action):
-    def name(self) -> str:
-        return "action_validate_id"
+# class ActionValidateID(Action):
+#     def name(self) -> str:
+#         return "action_validate_id"
     
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: dict) -> list:
-        # Extract the identity entity from the latest message
-        identity = tracker.get_slot("identity")
-        print(identity)
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: dict) -> list:
+#         # Extract the identity entity from the latest message
+#         identity = tracker.get_slot("identity")
+#         print(identity)
        
-        # Check the first match as the identity
-        valid_identity = validate_ecuadorian_id(identity)
+#         # Check the first match as the identity
+#         valid_identity = validate_ecuadorian_id(identity)
 
-        if valid_identity:
-            dispatcher.utter_message(text=f"Tu número de identificación {identity} ha sido guardado correctamente.")
-            return [SlotSet("identity", identity), FollowupAction("utter_ask_disclaimer")]
-        else:
-            # Identity is invalid
-            dispatcher.utter_message(text="El número de identificación proporcionado no es válido.")
-            return [SlotSet("identity", None), FollowupAction("utter_ask_identity")]
+#         if valid_identity:
+#             dispatcher.utter_message(text=f"Tu número de identificación {identity} ha sido guardado correctamente.")
+#             return [SlotSet("identity", identity), FollowupAction("utter_ask_disclaimer")]
+#         else:
+#             # Identity is invalid
+#             dispatcher.utter_message(text="El número de identificación proporcionado no es válido.")
+#             return [SlotSet("identity", None), FollowupAction("utter_ask_identity")]
 
 
 class ActionCheckDisclaimer(Action):
@@ -66,9 +65,8 @@ class ActionCheckDisclaimer(Action):
         print(option_value)
 
         if option_value != True:  # Replace with the value you want to check
-            dispatcher.utter_message(text="Por favor primero debes proporcionar tu cedula y aceptar los terminos y condiciones")
+            dispatcher.utter_message(text="Por favor primero debes aceptar los terminos y condiciones")
             return [UserUtteranceReverted()]
-
         return []
 
 class ActionShowOption(Action):
@@ -97,6 +95,17 @@ class ActionShowOption(Action):
 class ValidateClientDataForm(FormValidationAction):
     def name(self) -> str:
         return "validate_client_info_loan_form"
+    
+    def validation_identity(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        
+        identity = tracker.get_slot("identity")
+
+        if validate_ecuadorian_id(identity):
+            return [SlotSet("identity", identity)]
+        else:
+            # Identity is invalid
+            dispatcher.utter_message(response="utter_invalid_identity")
+            return [SlotSet("identity", None)]
 
     def validate_fullname(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
         naked_name = tracker.latest_message.get('text')
@@ -118,9 +127,9 @@ class ValidateClientDataForm(FormValidationAction):
             return {"city": None}
 
     def validate_cellphone(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+
         cellphone = tracker.get_slot("cellphone")
-        print(cellphone)
-        print(slot_value)
+ 
         if validate_ecuadorian_phone(cellphone):
             return {"cellphone": cellphone}
         else:
@@ -157,15 +166,3 @@ class ValidateClientNewLoanForm(ValidateClientDataForm):
         else:
             dispatcher.utter_message(response="utter_invalid_amount_required")
             return {"amount_required": None}
-
-    # def validate_salary(self, value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
-    #     if tracker.get_slot("salary") is None:
-    #         return {"salary": value}
-    #     else:
-    #         return {"salary": tracker.get_slot("salary")}
-
-    # def validate_amount_required(self, value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
-    #     if tracker.get_slot("amount_required") is None:
-    #         return {"amount_required": value}
-    #     else:
-    #         return {"amount_required": tracker.get_slot("amount_required")}

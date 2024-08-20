@@ -35,13 +35,13 @@ entities:
 
 forms:
 
-  client_disclaimer_form:
+  client_identity_form:
     required_slots:
       - identity
-      - disclosure
 
   client_info_loan_form:
     required_slots:
+      - identity
       - fullname
       - city
       - cellphone
@@ -49,6 +49,7 @@ forms:
 
   client_new_loan_form:
     required_slots:
+      - identity
       - fullname
       - city
       - cellphone
@@ -155,8 +156,6 @@ responses:
         La Cooperativa Que Cree En Su Gente.
         Soy PTIO su asistente virtual 🧡🖤
 
-  utter_ask_identity:
-    - text: "Antes de comenzar me puedes brindar tu número de identificación (por ejemplo, 100415088-3)"
 
   utter_ask_disclaimer:
     - text: |
@@ -166,7 +165,7 @@ responses:
         ¿Aceptas los términos y condiciones?
 
   utter_thanks:
-  - text: "¡Muchas gracias por brindarnos tu cedulay y aceptar nuestros terminos y condiciones!"
+  - text: "¡Muchas gracias por brindarnos tu cedula y aceptar nuestros terminos y condiciones!"
 
 # Responses for the main option menu
 
@@ -188,12 +187,12 @@ responses:
 
         ¿Cuál de estas opciones te gustaría explorar?
 
-  utter_open_loan:
-    - text: |
-        We would need the following information to open a new loan
-
 
 #  Responses for the forms, both cases when it is the first case and when the input does not goes throught the validation.
+
+  utter_ask_identity:
+    - text: "Antes de comenzar me puedes brindar tu número de identificación (por ejemplo, 1004150883)"
+
   utter_ask_fullname:
     - text:  |
         Por favor, sería tan amable de brindarme sus nombres y apellidos tal y como aparecen en su cédula
@@ -217,6 +216,9 @@ responses:
   utter_ask_amount_required:
     - text: "Cual es el monto de dinero necesita? (ej. 5000)"
 
+  utter_invalid_identity:
+    - text: "El número de identificación proporcionado no es válido. Por favor, intenta nuevamente."
+
   utter_invalid_fullname:
     - text: "El nombre proporcionado no es válido. Por favor, intenta nuevamente."
 
@@ -231,16 +233,18 @@ responses:
 
   utter_invalid_salary:
     - text: "Asegurate de ingresar una cantidad valida. Por favor, intenta nuevamente."
-    
+  
   utter_invalid_amount_required:
     - text: "El monto proporcionada es menor al valor minimo permitido. Por favor, intenta nuevamente."
+
 # Responces for summary and submition of the forms
   utter_submit:
   - text: "¡Tenemos tus datos!"
-  
+
   utter_slots_values:
     - text: |
         Los datos ingresados son los siguientes:
+        - Cedula de identidad: {identity}
         - Nombres Completos: {fullname}
         - Lugar de donde se comunica: {city}
         - Número telefónico: {cellphone}
@@ -249,6 +253,7 @@ responses:
   utter_summary_ask_loan:
   - text: |
           Los datos ingresados son los siguientes:
+          - Cedula de identidad: {identity}
           - Nombres Completos: {fullname}
           - Lugar de donde se comunica: {city}
           - Número telefónico: {cellphone}

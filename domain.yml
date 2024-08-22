@@ -162,7 +162,6 @@ responses:
         Al utilizar este canal digital autorizas a la Cooperativa de Ahorro y Crédito Pilahuin Tio Ltda. a acceder a tus datos personales 
         para la gestión de requerimientos y consultas en general. Para más información sobre los términos y condiciones visita 
         https://www.pilahintio.com.ec/terminos-y-condiciones
-        ¿Aceptas los términos y condiciones?
 
   utter_thanks:
   - text: "¡Muchas gracias por brindarnos tu cedula y aceptar nuestros terminos y condiciones!"
@@ -277,11 +276,13 @@ responses:
 
 actions:
   - action_end_conversation
-  - action_validate_id
   - action_check_disclaimer
+  - action_options_disclaimer_message
+  - action_options_service_message
   - action_show_option
   - validate_client_info_loan_form
   - validate_client_new_loan_form
+
 
 session_config:
   session_expiration_time: 60

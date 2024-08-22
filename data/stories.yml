@@ -5,46 +5,40 @@ stories:
   steps:
     - intent: start_conversation
     - action: utter_start_conversation
-    # - action: utter_ask_identity
-    # - intent: inform_personal_numbers
-    # - action: action_validate_id
-    # - action: client_identity_form      # The form is activated
-    # - active_loop: client_identity_form # Indicates the form is active
-    # - active_loop: null              # The form is finished
-    # - action: utter_id_inform 
+    - action: utter_ask_disclaimer
+    - action: action_options_disclaimer_message
     - checkpoint: disclaimer_checkpoint
+
 
 - story: handle_disclaimer (affirm)
   steps:
     - checkpoint: disclaimer_checkpoint
-    - action: utter_ask_disclaimer
     - intent: affirm
-    - checkpoint: ask_option_checkpoint
+    - action: action_options_service_message
+    - checkpoint: show_services
+
 
 - story: handle_disclaimer (deny)
   steps:
     - checkpoint: disclaimer_checkpoint
-    - action: utter_ask_disclaimer
     - intent: deny
     - action: utter_goodbye
     - action: action_end_conversation
 
-- story: ask_option
-  steps:
-    - checkpoint: ask_option_checkpoint
-    - action: utter_services
-    - intent: choose_option
-    - action: action_check_disclaimer
-    - action: action_show_option
-    - checkpoint: show_services
+# - story: ask_option
+#   steps:
+#     - checkpoint: ask_option_checkpoint
+#     - action: utter_services
+#     - action: action_options_service_message
+#     - intent: choose_option
+#     - action: action_check_disclaimer
+#     # - action: action_show_option
+#     - checkpoint: show_services
 
 - story: ask_info_loans
   steps:
   - checkpoint: show_services
-  - action: utter_loans
   - intent: loan_info
-  # - slot_was_set:
-  #   - loan_type: 1
   - action: action_check_disclaimer
   - action: client_info_loan_form
   - active_loop: client_info_loan_form
@@ -52,10 +46,7 @@ stories:
 - story: ask_new_loan
   steps:
   - checkpoint: show_services
-  - action: utter_loans
   - intent: open_loan
-  # - slot_was_set:
-  #   - loan_type: 2
   - action: action_check_disclaimer
   - action: client_new_loan_form
   - active_loop: client_new_loan_form

@@ -2,19 +2,6 @@ version: "3.1"
 
 rules:
 
-  # - rule: handle_id_user
-  #   steps:
-  #     - action: utter_start_conversation
-  #     - action: identity_form
-  #     - active_loop: identity_form
-
-  # - rule: submit_identity_form
-  #   condition:
-  #     - active_loop: identity_form
-  #   steps:
-  #     - action: identity_form
-  #     - active_loop: null
-  #     - action: action_show_identity
   - rule: Handle fallback
     steps:
       - intent: nlu_fallback

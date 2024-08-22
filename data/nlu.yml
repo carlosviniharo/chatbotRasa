@@ -73,6 +73,7 @@ nlu:
 - intent: loan_info
   examples: |
     - Información sobre mis créditos.
+    - Información de créditos
     - Dime sobre mis créditos actuales.
     - ¿Qué pasa con mis créditos?
     - Consulta de mis créditos.

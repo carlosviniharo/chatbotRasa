@@ -47,6 +47,24 @@ class WhatsAppOutput(OutputChannel):
             recipient_id = entry["recipient_id"]
             message = entry["message"]
             await self.send_text_message(recipient_id, message)
+    
+
+    async def send_custom_json(
+        self, recipient_id: Text, json_message: Dict[Text, Any], **kwargs: Any
+    ) -> None:
+        
+        headers = {
+            "Authorization": f"Bearer {self.access_token}",
+            "Content-Type": "application/json"
+        }
+
+        """Send custom json dict."""
+        json_message.setdefault("messaging_product", "whatsapp")
+        json_message.setdefault("recipient_type", "individual")
+        json_message.setdefault("to", recipient_id)
+
+        response = requests.post(self.api_url, headers=headers, data=json.dumps(json_message))
+        logger.debug(f"WhatsApp API response: {response.status_code}, {response.text}")
 
 class WhatsAppInput(InputChannel):
     """Custom input channel for WhatsApp Cloud API"""
@@ -87,7 +105,6 @@ class WhatsAppInput(InputChannel):
                     return text(challenge)
                 else:
                     return text("Verification token mismatch", status=403)
-
             @whatsapp_webhook.route("/", methods=["POST"])
             async def receive(request: Request) -> Any:
                 payload = request.json
@@ -96,11 +113,35 @@ class WhatsAppInput(InputChannel):
                 if "messages" in payload["entry"][0]["changes"][0]["value"]:
                     for message in payload["entry"][0]["changes"][0]["value"]["messages"]:
                         sender_id = message["from"]
-                        text = message["text"]["body"]
+                        
+                        # Determine message type
+                        message_type = message.get("type")
 
-                        await on_new_message(
-                            UserMessage(text, WhatsAppOutput(self.access_token, self.phone_number_id), sender_id)
-                        )
+                        # Handle text messages
+                        if message_type == "text":
+                            text = message.get("text", {}).get("body", "")
+                            await on_new_message(
+                                UserMessage(text, WhatsAppOutput(self.access_token, self.phone_number_id), sender_id)
+                            )
+                        
+                        # Handle interactive messages (e.g., button replies)
+                        elif message_type == "interactive":
+                            # Process button replies
+                            interactive = message.get("interactive", {})
+                            button_reply = interactive.get("button_reply", {})
+                            button_id = button_reply.get("id")
+                            button_title = button_reply.get("title")
+
+                            # Optionally, map button IDs to specific actions or texts
+                            text = f"{button_title}"
+                            await on_new_message(
+                                UserMessage(text, WhatsAppOutput(self.access_token, self.phone_number_id), sender_id)
+                            )
+                        
+                        # Add handling for other message types as needed
+                        # For example: images, documents, etc.
+                        else:
+                            logger.debug(f"Unhandled message type: {message_type}")
 
                 return response.json({"status": "received"})
 

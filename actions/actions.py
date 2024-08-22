@@ -14,6 +14,8 @@ from utils.helper import (
     validate_ecuadorian_phone,
     validate_email_string
 )
+from rasa.core.channels.channel import OutputChannel
+from whatsapp_connector import WhatsAppOutput
 
 
 class ActionEndConversation(Action):
@@ -27,28 +29,6 @@ class ActionEndConversation(Action):
         dispatcher.utter_message(text="Bueno, si tienes alguna otra pregunta no dudes en escribirme de nuevo")
         return [Restarted()]
 
-
-# class ActionValidateID(Action):
-#     def name(self) -> str:
-#         return "action_validate_id"
-    
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: dict) -> list:
-#         # Extract the identity entity from the latest message
-#         identity = tracker.get_slot("identity")
-#         print(identity)
-       
-#         # Check the first match as the identity
-#         valid_identity = validate_ecuadorian_id(identity)
-
-#         if valid_identity:
-#             dispatcher.utter_message(text=f"Tu número de identificación {identity} ha sido guardado correctamente.")
-#             return [SlotSet("identity", identity), FollowupAction("utter_ask_disclaimer")]
-#         else:
-#             # Identity is invalid
-#             dispatcher.utter_message(text="El número de identificación proporcionado no es válido.")
-#             return [SlotSet("identity", None), FollowupAction("utter_ask_identity")]
 
 
 class ActionCheckDisclaimer(Action):
@@ -68,6 +48,102 @@ class ActionCheckDisclaimer(Action):
             dispatcher.utter_message(text="Por favor primero debes aceptar los terminos y condiciones")
             return [UserUtteranceReverted()]
         return []
+
+
+class ActionOptionsDisclaimerMessage(Action):
+    def name(self) -> str:
+        return "action_options_disclaimer_message"
+
+    async def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
+        # Define the custom JSON message payload
+        json_message = {
+            "type": "interactive",
+            "interactive": {
+                "type": "button",
+                "body": {
+                    "text": "¿Aceptas los términos y condiciones?"
+                },
+                "action": {
+                    "buttons": [
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "yes_option",
+                                "title": "Si"
+                            }
+                        },
+                        {
+                            "type": "reply",
+                            "reply": {
+                                "id": "no_option",
+                                "title": "No"
+                        }
+                        }
+                    ]
+                }
+            }
+        }
+        dispatcher.utter_message(json_message=json_message)
+
+
+class ActionOptionsServiceMessage(Action):
+    def name(self) -> str:
+        return "action_options_service_message"
+
+    async def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
+        # Define the custom JSON message payload
+        json_message = {
+              "interactive": {
+                  "type": "list",
+                # "header": {
+                #   "type": "text",
+                #   "text": "Choose Shipping Option"
+                # },
+                  "body": {
+                      "text": "Tenemos las siguientes opciones disponibles:"
+                 },
+                # "footer": {
+                #   "text": "Lucky Shrub: Your gateway to succulents™"
+                # },
+                  "action": {
+                      "button": "options",
+                      "sections": [
+                        {
+                            "title": "Inversiones",
+                            "rows": [
+                                {
+                                    "id": "Investments",
+                                    "title": "Inversiones",
+                                },
+                            ]
+                        },
+                        {
+                            "title": "Creditos",
+                            "rows": [
+                                {
+                                    "id": "Loans information",
+                                    "title": "Información de mis créditos",
+                                },
+                                {
+                                    "id": "New Loan",
+                                    "title": "Solicitar un crédito.",
+                                },
+                            ]
+                        },
+                        {
+                        "title": "Cuentas",
+                        "rows": [
+                            {
+                                "id": "New account",
+                                "title": "Apertura de Cuentas",
+                            },
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+        dispatcher.utter_message(json_message=json_message)
 
 class ActionShowOption(Action):
 

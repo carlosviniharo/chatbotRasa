@@ -50,6 +50,14 @@ class ActionCheckDisclaimer(Action):
         return []
 
 
+
+""" 
+    The two following classe use customize JSON messages.
+    The documentation for custom messages JSON form is in the following 
+    link https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages,
+    please access to this documentation in case of need new interactive messages or templates.
+"""
+
 class ActionOptionsDisclaimerMessage(Action):
     def name(self) -> str:
         return "action_options_disclaimer_message"
@@ -87,12 +95,14 @@ class ActionOptionsDisclaimerMessage(Action):
 
 
 class ActionOptionsServiceMessage(Action):
+
     def name(self) -> str:
         return "action_options_service_message"
 
     async def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> list:
         # Define the custom JSON message payload
         json_message = {
+              "type": "interactive",
               "interactive": {
                   "type": "list",
                 # "header": {
@@ -109,33 +119,33 @@ class ActionOptionsServiceMessage(Action):
                       "button": "options",
                       "sections": [
                         {
-                            "title": "Inversiones",
+                            "title": "💰 Inversiones",
                             "rows": [
                                 {
-                                    "id": "Investments",
-                                    "title": "Inversiones",
+                                    "id": " Investments",
+                                    "title": "-Inversiones",
                                 },
                             ]
                         },
                         {
-                            "title": "Creditos",
+                            "title": "💸 Creditos",
                             "rows": [
                                 {
                                     "id": "Loans information",
-                                    "title": "Información de mis créditos",
+                                    "title": "-Información de créditos",
                                 },
                                 {
                                     "id": "New Loan",
-                                    "title": "Solicitar un crédito.",
+                                    "title": "-Solicitar un crédito.",
                                 },
                             ]
                         },
                         {
-                        "title": "Cuentas",
+                        "title": "🏦 Cuentas",
                         "rows": [
                             {
                                 "id": "New account",
-                                "title": "Apertura de Cuentas",
+                                "title": "-Apertura de Cuentas",
                             },
                             ]
                         }

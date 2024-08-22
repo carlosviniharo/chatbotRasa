@@ -14,7 +14,9 @@ stories:
   steps:
     - checkpoint: disclaimer_checkpoint
     - intent: affirm
-    - checkpoint: ask_option_checkpoint
+    - action: action_options_service_message
+    - checkpoint: show_services
+
 
 - story: handle_disclaimer (deny)
   steps:
@@ -23,23 +25,20 @@ stories:
     - action: utter_goodbye
     - action: action_end_conversation
 
-- story: ask_option
-  steps:
-    - checkpoint: ask_option_checkpoint
-    - action: utter_services
-    - action: action_options_service_message
-    - intent: choose_option
-    - action: action_check_disclaimer
-    # - action: action_show_option
-    - checkpoint: show_services
+# - story: ask_option
+#   steps:
+#     - checkpoint: ask_option_checkpoint
+#     - action: utter_services
+#     - action: action_options_service_message
+#     - intent: choose_option
+#     - action: action_check_disclaimer
+#     # - action: action_show_option
+#     - checkpoint: show_services
 
 - story: ask_info_loans
   steps:
   - checkpoint: show_services
-  - action: utter_loans
   - intent: loan_info
-  # - slot_was_set:
-  #   - loan_type: 1
   - action: action_check_disclaimer
   - action: client_info_loan_form
   - active_loop: client_info_loan_form
@@ -47,10 +46,7 @@ stories:
 - story: ask_new_loan
   steps:
   - checkpoint: show_services
-  - action: utter_loans
   - intent: open_loan
-  # - slot_was_set:
-  #   - loan_type: 2
   - action: action_check_disclaimer
   - action: client_new_loan_form
   - active_loop: client_new_loan_form
